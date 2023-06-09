@@ -36,7 +36,7 @@ const HomeScreen = ({navigation}) => {
                 <Image source={require('../Images/user.png')} style={[styles.bottomTabIcon,selectedTab===2 && styles.activeColor]}></Image>
             </TouchableOpacity>
             <TouchableOpacity style={styles.bottomTab} onPress={()=>setSelectedTab(3)}>
-                <Image source={require('../Images/wishList.png')} style={[styles.bottomTabIcon,selectedTab===3 && styles.activeColor]}></Image>
+                <Image source={require('../Images/heart.png')} style={[styles.bottomTabIcon,selectedTab===3 && styles.activeColor]}></Image>
             </TouchableOpacity>
       </View>
     </View>
