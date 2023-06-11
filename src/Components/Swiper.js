@@ -34,7 +34,7 @@ export default class extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Swiper activeDotColor="white" style={styles.wrapper} height={300} horizontal={true} autoplay>
+        <Swiper activeDotColor="white" style={styles.wrapper} height={200} horizontal={true} autoplay autoplayTimeout={4}>
           <View style={styles.slide}>
             <Image
               resizeMode="stretch"

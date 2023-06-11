@@ -7,7 +7,7 @@ import HomeScreen from './HomeScreen';
  const Main = () => {
    return (
      <Drawer.Navigator>
-      <Drawer.Screen name='HomeScreen' component={HomeScreen} options={{headerShown:false}}>
+      <Drawer.Screen name='Home' component={HomeScreen} options={{headerShown:false}}>
       </Drawer.Screen>
      </Drawer.Navigator>
    )
