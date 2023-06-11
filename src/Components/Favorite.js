@@ -1,7 +1,6 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
-import Swiper from "react-native-swiper";
 
 const Favorite = () => {
     const [favProducts,setFavProducts] = useState([]);
@@ -14,13 +13,15 @@ const Favorite = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Most Favorites</Text>
       <View style={styles.underline} />
+      <TouchableOpacity>
       <Text style={{marginTop:20}}>View All Products</Text>
+      </TouchableOpacity>
       <View style={{flex:1}}>
-      <Swiper horizontal={true}>
+      <ScrollView horizontal={true}>
       {
         favProducts.slice(0,9).map(product=><Product product={product} key={product?.id}></Product>)
       }
-      </Swiper>
+      </ScrollView>
       </View>
     </View>
   );
