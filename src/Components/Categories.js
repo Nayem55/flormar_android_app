@@ -3,7 +3,7 @@ import React from 'react'
 
 const Categories = () => {
   return (
-    <View style={{flex:1, flexDirection:'row', padding:10, paddingTop:20}}>
+    <View style={{flex:1, flexDirection:'row',padding:10, paddingTop:20, paddingBottom:20,backgroundColor:"#fff"}}>
         <View style={styles.category}>
         <Image style = {styles.image}  source={require('../Images/categories/cat1.png')} />
             <Text>
@@ -45,15 +45,14 @@ const styles = {
         flex:1,
         justifyContent:"center",
         alignItems:"center",
-        flexDirection:'column'
+        flexDirection:'column',
+        // backgroundColor:"#fff",        
     },
 
     image : {
         width: 60,
         height: 60,
-        borderRadius:50
-
-
+        borderRadius:50,
     }
     
 
