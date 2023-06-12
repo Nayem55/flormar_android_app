@@ -1,11 +1,13 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
+import { useNavigation } from "@react-navigation/native";
 
 const Favorite = () => {
     const [favProducts,setFavProducts] = useState([]);
+    const navigation = useNavigation();
     useEffect(()=>{
-        fetch(`http://192.168.0.82:5000/getProductsByTags`)
+        fetch(`http://192.168.1.128:5000/getProductsByTags`)
         .then(res=>res.json())
         .then(data=>setFavProducts(data))
     },[])
@@ -13,7 +15,7 @@ const Favorite = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Most Favorites</Text>
       <View style={styles.underline} />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('Products')}>
       <Text style={{marginTop:20}}>View All Products</Text>
       </TouchableOpacity>
       <View style={{flex:1}}>

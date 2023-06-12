@@ -7,13 +7,13 @@ const Product = ({ product }) => {
       <View style={styles.productImage}>
         <Image
           style={styles.image}
-          source={{ uri: product?.images[0].src }}
+          source={{ uri: product?.images[0]?.src }}
         ></Image>
       </View>
       <View style={styles.details}>
         <Text>{product?.name}</Text>
         <View style={{ flexDirection: "row", gap: 10 ,alignItems:"center"}}>
-          <Text style={styles.price}>TK. {product.on_sale?product.sale_price:product.regular_price}</Text>
+          <Text style={styles.price}>TK. {product?.on_sale?product?.sale_price:product?.regular_price}</Text>
           <Text
             style={{
               textDecorationLine: "line-through",
@@ -22,7 +22,7 @@ const Product = ({ product }) => {
               opacity: 0.5,
             }}
           >
-          {product.on_sale && `TK. ${product.regular_price}`}
+          {product?.on_sale && `TK. ${product?.regular_price}`}
           </Text>
         </View>
         <TouchableOpacity style={styles.button}>
@@ -37,11 +37,10 @@ export default Product;
 
 const styles = {
   container: {
-    flex: 1,
     width: 160,
     marginRight:20,
-    height:250
-    
+    height:250,
+    marginBottom:150
   },
   productImage: {
     backgroundColor: "#fff",
