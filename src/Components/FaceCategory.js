@@ -50,13 +50,15 @@ const FaceCategory = () => {
           <Text style={styles.categoryBarText}>CLEANER/REMOVER</Text>
         </TouchableOpacity>
 
-        </ScrollView>
+
+
+    </ScrollView>
         <View  style={styles.container}>
-         {
-        faceProducts.map((product) => (
-            <Product product={product} key={product.id}></Product>
-      ))}
-    </View>
+          {
+          faceProducts.map((product) => (
+              <Product product={product} key={product.id}></Product>
+        ))}
+      </View>
     </ScrollView>
   );
 };
@@ -69,8 +71,7 @@ const styles = {
     padding:10,
     flexDirection:"row",
     flexWrap:"wrap",
-    justifyContent:"center",
-    paddingLeft:20,
+    justifyContent:"center"
   },
   categoryBar:{
     width:"100%",
