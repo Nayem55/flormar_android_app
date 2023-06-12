@@ -37,7 +37,6 @@ export default Product;
 
 const styles = {
   container: {
-    flex: 1,
     width: 160,
     marginRight:20,
     height:250,
