@@ -21,7 +21,7 @@ const Favorite = () => {
       <View style={{flex:1}}>
       <ScrollView horizontal={true}>
       {
-        favProducts.slice(0,9).map(product=><Product product={product} key={product?.id}></Product>)
+        favProducts.map(product=><Product product={product} key={product?.id}></Product>)
       }
       </ScrollView>
       </View>
