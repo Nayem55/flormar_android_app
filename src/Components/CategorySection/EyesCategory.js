@@ -17,7 +17,7 @@ const EyesCategory = () => {
   const navigation = useNavigation();
   useEffect(() => {
     setFaceProducts([])
-      fetch(`http://192.168.1.128:5000/getProductsByCategories?id=${id}`)
+      fetch(`http://192.168.0.30:5000/getProductsByCategories?id=${id}`)
       .then((res) => res.json())
       .then((data) => setFaceProducts(data));
   }, [selectedCategory]);
