@@ -44,7 +44,7 @@ const styles = {
     marginBottom:150,
     marginLeft: 10,
     marginRight: 10,
-    position:"relative"
+    position:"relative",
   },
   productImage: {
     backgroundColor: "#fff",
@@ -54,6 +54,7 @@ const styles = {
     padding: 20,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius:10
   },
   image: {
     width: "100%",

@@ -17,6 +17,7 @@ const FaceCategory = () => {
   const [pageCount, setPageCount] = useState(1);
   const [id, setId] = useState(70);
   const [loading, setLoading] = useState(false);
+  const [loadData, setLoadData] = useState(false);
   const [isCategoryChanged, setIsCategoryChanged] = useState(false);
   const navigation = useNavigation();
   useEffect(() => {
@@ -29,6 +30,7 @@ const FaceCategory = () => {
         setFaceProducts([...faceProducts, ...data[0]]);
         setPages(data[1]);
         setLoading(false);
+        setLoadData(false);
         setIsCategoryChanged(false);
       });
   }, [selectedCategory, pageCount]);
@@ -46,6 +48,15 @@ const FaceCategory = () => {
       </View>
     )
   };
+
+  useEffect(() => {
+    if(loadData){
+      if(pages > pageCount && !isCategoryChanged){
+        setPageCount(pageCount + 1);
+      } 
+    }
+  }, [loadData]);
+
 
   console.log(pages,pageCount)
 
@@ -293,13 +304,30 @@ const FaceCategory = () => {
       <FlatList
         data={faceProducts}
         renderItem={({ item }) => <Product product={item} />}
-        onEndReached={() => pages > pageCount && !isCategoryChanged ? setPageCount(pageCount + 1):""}
+        onEndReached={() => setLoadData(true)}
         keyExtractor={(item) => item.id.toString()}
         onEndReachedThreshold={0.8}
         ListFooterComponent={ListEndLoader} // Loader when loading next page.
         contentContainerStyle={{ paddingLeft: "4%", paddingBottom: 100 }}
         numColumns={2}
         style={styles.flatList}
+        ListEmptyComponent={() => (
+          (!loading && pages< 1) &&
+          <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#fceef2",
+            paddingTop:100
+          }}
+        >
+          <Text style={{ fontSize: 18, textAlign: "center" }}>
+            {" "}
+            Sorry ! We Don,t Have The Selected Category Available For Now
+          </Text>
+        </View>
+        )}
       />
     </View>
   );
