@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   quantity: {
     flexDirection: 'row',
     alignItems: 'center',
-    width:"40%"
+    width:"45%"
   },
   input: {
     flex: 1,
