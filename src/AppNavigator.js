@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import Main from "./Screens/Main";
 import ProductScreen from "./Screens/ProductScreen";
+import productDetails from "./Screens/ProductDetails";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -11,7 +12,8 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="main" component={Main} options={{headerShown: false}}></Stack.Screen>
-        <Stack.Screen name="Products" component={ProductScreen} options={{headerShown: true}}>
+        <Stack.Screen name="Products" component={ProductScreen} options={{headerShown: true}}/>
+        <Stack.Screen name="details" component={productDetails} options={{headerShown: true}}>
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

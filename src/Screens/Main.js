@@ -7,10 +7,7 @@ import LipsCategory from "../Components/CategorySection/LipsCategory";
 import NailsCategory from "../Components/CategorySection/NailsCategory";
 import Accessories from "../Components/CategorySection/Accessories";
 import FaceCategory from "../Components/CategorySection/FaceCategory";
-// import EyesCategory from "../Components/CategorySection/EyesCategory";
-// import LipsCategory from "../Components/CategorySection/LipsCategory";
-// import NailsCategory from "../Components/CategorySection/NailsCategory";
-// import Accessories from "../Components/CategorySection/Accessories";
+
 
 const Drawer = createDrawerNavigator();
 const Main = () => {

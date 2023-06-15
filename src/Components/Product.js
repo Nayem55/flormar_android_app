@@ -1,15 +1,17 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const Product = ({ product }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <View style={styles.productImage}>
+      <TouchableOpacity onPress={()=>navigation.navigate('details',{product:product})} style={styles.productImage}>
         <Image
           style={styles.image}
           source={{ uri: product?.images[0]?.src }}
         ></Image>
-      </View>
+      </TouchableOpacity>
       <View style={styles.details}>
         <Text>{product?.name}</Text>
       <View style={{position:"absolute",top:60}}>
