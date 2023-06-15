@@ -1,14 +1,14 @@
 import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
-import Swiper from '../../Components/Swiper';
 import Favorite from '../../Components/Favorite';
 import Categories from '../../Components/Categories';
+import BannerSwiper from '../../Components/BannerSwiper';
 
 const Home = () => {
   return (
     <ScrollView>
     <View>
-      <Swiper></Swiper>
+      <BannerSwiper></BannerSwiper>
     </View>
     <View>
       <Categories></Categories>
