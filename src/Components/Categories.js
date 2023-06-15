@@ -1,39 +1,41 @@
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/core';
 
 const Categories = () => {
+    const navigation = useNavigation();
   return (
-    <View style={{flex:1, flexDirection:'row',padding:10, paddingTop:20, paddingBottom:20,backgroundColor:"#fff"}}>
-        <View style={styles.category}>
+    <View style={styles.categorySection}>
+        <TouchableOpacity onPress={()=>navigation.navigate('FACE')} style={styles.category}>
         <Image style = {styles.image}  source={require('../Images/categories/cat1.png')} />
             <Text>
                 Face
             </Text>
-        </View>
-        <View style={styles.category}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('EYES')} style={styles.category}>
         <Image style = {styles.image} source={require('../Images/categories/cat2.png')} />
             <Text>
                 Eyes    
             </Text>
-        </View>
-        <View style={styles.category}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('LIPS')} style={styles.category}>
         <Image style = {styles.image} source={require('../Images/categories/cat3.png')} />
             <Text>
                 Lips
             </Text>
-        </View>
-        <View style={styles.category}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('NAILS')} style={styles.category}>
         <Image style = {styles.image} source={require('../Images/categories/cat4.png')} />
             <Text>
                 Nails
             </Text>
-        </View>
-        <View style={styles.category}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('ACCESSORIES')} style={styles.category}>
         <Image style = {styles.image} source={require('../Images/categories/cat5.png')} />
             <Text>
                 Accessories
             </Text>
-        </View>
+        </TouchableOpacity>
     </View>
   )
 }
@@ -53,8 +55,15 @@ const styles = {
         width: 60,
         height: 60,
         borderRadius:50,
-    }
+    },
     
-
+    categorySection : {
+        flex:1, 
+        flexDirection:'row',
+        padding:10, 
+        paddingTop:20, 
+        paddingBottom:20,
+        backgroundColor:"#fff"
+    }
 
 }
