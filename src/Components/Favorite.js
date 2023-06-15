@@ -7,10 +7,10 @@ const Favorite = () => {
     const [favProducts,setFavProducts] = useState([]);
     const navigation = useNavigation();
     useEffect(()=>{
-        fetch(`http://192.168.1.128:5000/getProductsByTags`)
-        .then(res=>res.json())
-        .then(data=>setFavProducts(data))
-    },[])
+      fetch(`http://192.168.0.30:5000/getProductsByTags`)
+      .then(res=>res.json())
+      .then(data=>setFavProducts(data))
+  },[])
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Most Favorites</Text>

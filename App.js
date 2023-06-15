@@ -1,11 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import AppNavigator from './src/AppNavigator';
+import AppNavigator from "./src/AppNavigator";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   return (
-    <AppNavigator></AppNavigator>
+    // <GestureHandlerRootView>
+      <AppNavigator></AppNavigator>
+    // </GestureHandlerRootView>
   );
 }
-
-

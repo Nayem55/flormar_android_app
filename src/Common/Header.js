@@ -10,11 +10,10 @@ import React from "react";
 import { color } from "react-native-reanimated";
 const { height, width } = Dimensions.get("window");
 const Header = ({
-  title,
   leftIcon,
   rightIcon,
   onClickLeftIcon,
-  onClickRightIcon,
+
 }) => {
   return (
     <View style={styles.header}>
