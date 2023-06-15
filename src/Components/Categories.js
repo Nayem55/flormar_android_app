@@ -1,18 +1,18 @@
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native'
 
 const Categories = () => {
     const navigation = useNavigation();
   return (
-    <View style={styles.categorySection}>
+    <View style={{flex:1, flexDirection:'row',padding:10, paddingTop:20, paddingBottom:20,backgroundColor:"#fff"}}>
         <TouchableOpacity onPress={()=>navigation.navigate('FACE')} style={styles.category}>
         <Image style = {styles.image}  source={require('../Images/categories/cat1.png')} />
             <Text>
                 Face
             </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('EYES')} style={styles.category}>
+        <TouchableOpacity style={styles.category}>
         <Image style = {styles.image} source={require('../Images/categories/cat2.png')} />
             <Text>
                 Eyes    

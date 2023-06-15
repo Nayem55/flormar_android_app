@@ -7,16 +7,24 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Modal,
+  useWindowDimensions 
 } from "react-native";
 import StarRating from "../Components/Ratings";
+import Icon from "react-native-vector-icons/FontAwesome";
+import HTML from 'react-native-render-html';
 
 const ProductDetails = ({ route }) => {
   const { product } = route.params;
+  const [isDescOpen, setIsDescOpen] = useState(false);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [isShipInfoOpen, setIsShipInfoOpen] = useState(false);
   const [value, setValue] = useState(1);
+  const windowWidth = useWindowDimensions().width;
   // console.log(product.attributes.length);
 
   const handleMinus = () => {
-    if(value>0){
+    if (value > 0) {
       setValue(value - 1);
     }
   };
@@ -24,6 +32,8 @@ const ProductDetails = ({ route }) => {
   const handlePlus = () => {
     setValue(value + 1);
   };
+
+
   return (
     <ScrollView style={styles.container}>
       <View style={{ backgroundColor: "#fff", padding: 10 }}>
@@ -42,6 +52,7 @@ const ProductDetails = ({ route }) => {
             ({product.rating_count} customer reviews)
           </Text>
         </View>
+
         {/* .............price................ */}
         <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
           <Text style={styles.price}>
@@ -61,12 +72,14 @@ const ProductDetails = ({ route }) => {
             {product?.on_sale && `TK. ${product?.regular_price}`}
           </Text>
         </View>
+
         {/* ...................description.................. */}
         <Text
           style={{ color: "#000", opacity: 0.5, fontSize: 15, paddingTop: 10 }}
         >
           {product.short_description}
         </Text>
+
         {/* ......................attributes............................ */}
         <View style={{ flex: 1, marginBottom: 20 }}>
           {product.attributes.map((attribute) => (
@@ -95,16 +108,21 @@ const ProductDetails = ({ route }) => {
             </View>
           ))}
         </View>
+
         {/* ...................stock status .......................*/}
         <View
           style={[styles.stock, product.stock_quantity < 1 && style.outStock]}
         >
+          {product.stock_quantity > 0 && (
+            <Icon name="check" size={18} color="white" />
+          )}
           <Text style={{ color: "#fff" }}>
             {product.stock_quantity > 0 ? "In Stock" : "Out Stock"}
           </Text>
         </View>
+
         {/* ........................cart option .........................*/}
-        <View style={{flex:1, flexDirection: "row", gap: 10 ,marginTop:20}}>
+        <View style={{ flex: 1, flexDirection: "row", gap: 10, marginTop: 20 }}>
           <View style={styles.quantity}>
             <TouchableOpacity style={styles.button} onPress={handleMinus}>
               <Text style={styles.buttonText}>-</Text>
@@ -123,18 +141,108 @@ const ProductDetails = ({ route }) => {
             <Text style={{ color: "#fff" }}>ADD TO CART</Text>
           </TouchableOpacity>
         </View>
+
         {/* ..................buy button................. */}
-        <TouchableOpacity style={{
-          backgroundColor:"#000",
-          padding:10,
-          marginTop:10,
-          width:"40%",
-          borderRadius:5,
-          flexDirection:'row',
-          justifyContent:"center"
-        }}>
-          <Text style={{color:"#fff"}}>BUY NOW</Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#000",
+            padding: 10,
+            marginTop: 10,
+            width: "40%",
+            borderRadius: 5,
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={{ color: "#fff" }}>BUY NOW</Text>
         </TouchableOpacity>
+
+        <View
+          style={{
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            borderStyle: "dotted",
+            marginTop: 24,
+            opacity: 0.2,
+          }}
+        ></View>
+
+        <View>
+          <Text style={{ fontSize: 18, marginTop: 10 }}>
+            SKU: <Text style={{ color: "#7b7783" }}>{product.sku}</Text>
+          </Text>
+          <Text style={{ fontSize: 18, marginTop: 10 }}>
+            CATEGORY:{" "}
+            {product.categories.map((category) => (
+              <Text style={{ color: "#7b7783" }}>{category.name}, </Text>
+            ))}
+          </Text>
+          <Text style={{ fontSize: 18, marginTop: 10 }}>
+            TAGS:{" "}
+            {product.tags.map((tag) => (
+              <Text style={{ color: "#7b7783" }}>{tag.name}, </Text>
+            ))}
+          </Text>
+        </View>
+
+        {/* ....................dropdown........................ */}
+        <View style={{marginTop:20}}>
+          <View style={styles.dropdown}>
+            <TouchableOpacity
+              style={styles.dropdownHeader}
+              onPress={()=>setIsDescOpen(!isDescOpen)}
+            >
+              <Text style={styles.dropdownHeaderText}>Description</Text>
+            </TouchableOpacity>
+
+            <View
+              style={[
+                styles.dropdownContent,
+                isDescOpen ? styles.show : styles.hide,
+              ]}
+            >
+              <HTML style={styles.dropdownText} source={{ html: product.description }} contentWidth={windowWidth}/>
+            </View>
+          </View>
+
+          <View style={styles.dropdown}>
+            <TouchableOpacity
+              style={styles.dropdownHeader}
+              onPress={()=>setIsReviewOpen(!isReviewOpen)}
+            >
+              <Text style={styles.dropdownHeaderText}>REVIEWS ({product.rating_count})</Text>
+            </TouchableOpacity>
+
+            <View
+              style={[
+                styles.dropdownContent,
+                isReviewOpen ? styles.show : styles.hide,
+              ]}
+            >
+              <HTML style={styles.dropdownText} source={{ html: product.description }} contentWidth={windowWidth}/>
+            </View>
+          </View>
+
+          <View style={styles.dropdown}>
+            <TouchableOpacity
+              style={styles.dropdownHeader}
+              onPress={()=>setIsShipInfoOpen(!isShipInfoOpen)}
+            >
+              <Text style={styles.dropdownHeaderText}>SHIPPING & DELIVERY</Text>
+            </TouchableOpacity>
+
+            <View
+              style={[
+                styles.dropdownContent,
+                isShipInfoOpen ? styles.show : styles.hide,
+              ]}
+            >
+            <HTML style={styles.dropdownText} source={{ html: product.description }} contentWidth={windowWidth}/>
+            </View>
+          </View>
+
+
+        </View>
       </View>
     </ScrollView>
   );
@@ -171,6 +279,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     borderRadius: 5,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
   },
   outStock: {
     backgroundColor: "#e34b6c",
@@ -184,31 +295,61 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   quantity: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width:"45%"
+    flexDirection: "row",
+    alignItems: "center",
+    width: "50%",
   },
   input: {
     flex: 1,
     paddingHorizontal: 10,
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     borderRadius: 5,
     marginLeft: 10,
     marginRight: 10,
-    textAlign: 'center',
+    textAlign: "center",
   },
   button: {
     width: 40,
     height: 40,
-    backgroundColor: '#DDDDDD',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#DDDDDD",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
   },
   buttonText: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+  },
+
+  dropdownHeader: {
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 5,
+  },
+  dropdownHeaderText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "black",
+  },
+  dropdownContent: {
+    marginTop: 10,
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 5,
+  },
+  dropdownText: {
+    fontSize: 14,
+    color: "black",
+    marginBottom: 5,
+  },
+  show: {
+    height: "auto",
+    marginBottom:10
+  },
+  hide: {
+    height: 0,
+    padding: 0,
   },
 });
