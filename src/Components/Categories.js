@@ -12,7 +12,7 @@ const Categories = () => {
                 Face
             </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.category}>
+        <TouchableOpacity onPress={()=>navigation.navigate('EYES')} style={styles.category}>
         <Image style = {styles.image} source={require('../Images/categories/cat2.png')} />
             <Text>
                 Eyes    

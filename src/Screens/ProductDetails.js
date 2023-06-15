@@ -13,6 +13,8 @@ import {
 import StarRating from "../Components/Ratings";
 import Icon from "react-native-vector-icons/FontAwesome";
 import HTML from 'react-native-render-html';
+import DownArrowIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ProductImageSwiper from "../Components/ProductImageSwiper";
 
 const ProductDetails = ({ route }) => {
   const { product } = route.params;
@@ -33,14 +35,13 @@ const ProductDetails = ({ route }) => {
     setValue(value + 1);
   };
 
+   
+
 
   return (
     <ScrollView style={styles.container}>
       <View style={{ backgroundColor: "#fff", padding: 10 }}>
-        <Image
-          style={styles.image}
-          source={{ uri: product?.images[0]?.src }}
-        ></Image>
+       <ProductImageSwiper product={product}></ProductImageSwiper>
       </View>
 
       <View style={styles.details}>
@@ -168,16 +169,16 @@ const ProductDetails = ({ route }) => {
         ></View>
 
         <View>
-          <Text style={{ fontSize: 18, marginTop: 10 }}>
+          <Text style={{ fontSize: 15, marginTop: 10 }}>
             SKU: <Text style={{ color: "#7b7783" }}>{product.sku}</Text>
           </Text>
-          <Text style={{ fontSize: 18, marginTop: 10 }}>
+          <Text style={{ fontSize: 15, marginTop: 10 }}>
             CATEGORY:{" "}
             {product.categories.map((category) => (
               <Text style={{ color: "#7b7783" }}>{category.name}, </Text>
             ))}
           </Text>
-          <Text style={{ fontSize: 18, marginTop: 10 }}>
+          <Text style={{ fontSize: 15, marginTop: 10 }}>
             TAGS:{" "}
             {product.tags.map((tag) => (
               <Text style={{ color: "#7b7783" }}>{tag.name}, </Text>
@@ -193,6 +194,7 @@ const ProductDetails = ({ route }) => {
               onPress={()=>setIsDescOpen(!isDescOpen)}
             >
               <Text style={styles.dropdownHeaderText}>Description</Text>
+              <DownArrowIcon name="arrow-down-drop-circle" size={20} color="black" />
             </TouchableOpacity>
 
             <View
@@ -211,6 +213,7 @@ const ProductDetails = ({ route }) => {
               onPress={()=>setIsReviewOpen(!isReviewOpen)}
             >
               <Text style={styles.dropdownHeaderText}>REVIEWS ({product.rating_count})</Text>
+              <DownArrowIcon name="arrow-down-drop-circle" size={20} color="black" />
             </TouchableOpacity>
 
             <View
@@ -229,6 +232,7 @@ const ProductDetails = ({ route }) => {
               onPress={()=>setIsShipInfoOpen(!isShipInfoOpen)}
             >
               <Text style={styles.dropdownHeaderText}>SHIPPING & DELIVERY</Text>
+              <DownArrowIcon name="arrow-down-drop-circle" size={20} color="black" />
             </TouchableOpacity>
 
             <View
@@ -243,6 +247,7 @@ const ProductDetails = ({ route }) => {
 
 
         </View>
+
       </View>
     </ScrollView>
   );
@@ -256,9 +261,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fceef2",
   },
 
-  image: {
-    height: 400,
-  },
   details: {
     padding: 15,
     marginBottom: 30,
@@ -325,6 +327,8 @@ const styles = StyleSheet.create({
 
   dropdownHeader: {
     backgroundColor: "#fff",
+    flexDirection:"row",
+    justifyContent:"space-between",
     padding: 10,
     borderRadius: 5,
   },
