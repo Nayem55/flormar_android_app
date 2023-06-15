@@ -13,7 +13,7 @@ const AppNavigator = () => {
       <Stack.Navigator>
         <Stack.Screen name="main" component={Main} options={{headerShown: false}}></Stack.Screen>
         <Stack.Screen name="Products" component={ProductScreen} options={{headerShown: true}}/>
-        <Stack.Screen name="details" component={productDetails} options={{headerShown: true}}>
+        <Stack.Screen name="Product Details" component={productDetails} options={{headerShown: true}}>
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
