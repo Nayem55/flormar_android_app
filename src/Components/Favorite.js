@@ -34,7 +34,7 @@ export default Favorite;
 const styles = {
   container: {
     width: "100%",
-    height: 800,
+    height: 700,
     backgroundColor: "#fceef2",
     padding: 20,
     paddingTop: 60,
