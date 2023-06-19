@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  useWindowDimensions 
+  useWindowDimensions,
 } from "react-native";
 import StarRating from "../Components/Ratings";
 import Icon from "react-native-vector-icons/FontAwesome";
-import HTML from 'react-native-render-html';
-import DownArrowIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import HTML from "react-native-render-html";
+import DownArrowIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
 
 const ProductDetails = ({ route }) => {
@@ -21,6 +21,7 @@ const ProductDetails = ({ route }) => {
   const [isDescOpen, setIsDescOpen] = useState(false);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [isShipInfoOpen, setIsShipInfoOpen] = useState(false);
+  const [reviews, setReviews] = useState([]);
   const [value, setValue] = useState(1);
   const windowWidth = useWindowDimensions().width;
   // console.log(product.attributes.length);
@@ -35,20 +36,23 @@ const ProductDetails = ({ route }) => {
     setValue(value + 1);
   };
 
-   
-
+  useEffect(() => {
+    fetch(`http://192.168.0.103:5000/reviews?id=${product.id}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
       <View style={{ backgroundColor: "#fff", padding: 10 }}>
-       <ProductImageSwiper product={product}></ProductImageSwiper>
+        <ProductImageSwiper product={product}></ProductImageSwiper>
       </View>
 
       <View style={styles.details}>
         <Text style={styles.name}>{product?.name}</Text>
         {/* .............ratings................ */}
         <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-          <StarRating product={product}></StarRating>
+          <StarRating rating={product.average_rating} size={22}></StarRating>
           <Text style={{ color: "#000", opacity: 0.5 }}>
             ({product.rating_count} customer reviews)
           </Text>
@@ -187,14 +191,19 @@ const ProductDetails = ({ route }) => {
         </View>
 
         {/* ....................dropdown........................ */}
-        <View style={{marginTop:20}}>
+        <View style={{ marginTop: 20 }}>
+          {/* product description dropdown */}
           <View style={styles.dropdown}>
             <TouchableOpacity
               style={styles.dropdownHeader}
-              onPress={()=>setIsDescOpen(!isDescOpen)}
+              onPress={() => setIsDescOpen(!isDescOpen)}
             >
               <Text style={styles.dropdownHeaderText}>Description</Text>
-              <DownArrowIcon name="arrow-down-drop-circle" size={20} color="black" />
+              <DownArrowIcon
+                name="arrow-down-drop-circle"
+                size={20}
+                color="black"
+              />
             </TouchableOpacity>
 
             <View
@@ -203,17 +212,28 @@ const ProductDetails = ({ route }) => {
                 isDescOpen ? styles.show : styles.hide,
               ]}
             >
-              <HTML style={styles.dropdownText} source={{ html: product.description }} contentWidth={windowWidth}/>
+              <HTML
+                style={styles.dropdownText}
+                source={{ html: product.description }}
+                contentWidth={windowWidth}
+              />
             </View>
           </View>
 
+          {/* product reviews dropdown */}
           <View style={styles.dropdown}>
             <TouchableOpacity
               style={styles.dropdownHeader}
-              onPress={()=>setIsReviewOpen(!isReviewOpen)}
+              onPress={() => setIsReviewOpen(!isReviewOpen)}
             >
-              <Text style={styles.dropdownHeaderText}>REVIEWS ({product.rating_count})</Text>
-              <DownArrowIcon name="arrow-down-drop-circle" size={20} color="black" />
+              <Text style={styles.dropdownHeaderText}>
+                REVIEWS ({product.rating_count})
+              </Text>
+              <DownArrowIcon
+                name="arrow-down-drop-circle"
+                size={20}
+                color="black"
+              />
             </TouchableOpacity>
 
             <View
@@ -222,17 +242,63 @@ const ProductDetails = ({ route }) => {
                 isReviewOpen ? styles.show : styles.hide,
               ]}
             >
-              <HTML style={styles.dropdownText} source={{ html: product.description }} contentWidth={windowWidth}/>
+              <Text>Reviews For {product.name}</Text>
+              {reviews.map((review) => (
+                <View>
+                  <View
+                    style={{
+                      borderBottomColor: "black",
+                      borderBottomWidth: 1,
+                      borderStyle: "dotted",
+                      marginTop: 6,
+                      opacity: 0.2,
+                    }}
+                  ></View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 10,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      style={{
+                        width: 48,
+                        height: 48,
+                        marginTop: 20,
+                        borderRadius: 50,
+                      }}
+                      source={{
+                        uri: "https://secure.gravatar.com/avatar/8d889825c6601354445cd63f684ad82f?s=48&d=mm&r=g",
+                      }}
+                    ></Image>
+                    <View style={{ marginTop: 10 }}>
+                      <Text>{review.reviewer}</Text>
+                      <StarRating rating={review.rating} size={18}></StarRating>
+                    </View>
+                  </View>
+                  <HTML
+                    style={styles.dropdownText}
+                    source={{ html: review.review }}
+                    contentWidth={windowWidth}
+                  />
+                </View>
+              ))}
             </View>
           </View>
 
+          {/* product shipping dropdown */}
           <View style={styles.dropdown}>
             <TouchableOpacity
               style={styles.dropdownHeader}
-              onPress={()=>setIsShipInfoOpen(!isShipInfoOpen)}
+              onPress={() => setIsShipInfoOpen(!isShipInfoOpen)}
             >
               <Text style={styles.dropdownHeaderText}>SHIPPING & DELIVERY</Text>
-              <DownArrowIcon name="arrow-down-drop-circle" size={20} color="black" />
+              <DownArrowIcon
+                name="arrow-down-drop-circle"
+                size={20}
+                color="black"
+              />
             </TouchableOpacity>
 
             <View
@@ -241,13 +307,35 @@ const ProductDetails = ({ route }) => {
                 isShipInfoOpen ? styles.show : styles.hide,
               ]}
             >
-            <HTML style={styles.dropdownText} source={{ html: product.description }} contentWidth={windowWidth}/>
+              <Text>
+                1. Packaging materials: This may include boxes, envelopes,
+                packaging peanuts, bubble wrap, and other materials used to
+                protect the goods during transportation.{'\n'}{'\n'}2. Shipping label: This is
+                a label that is affixed to the outside of the package and
+                contains important information such as the recipient's address,
+                the sender's address, the shipping method, and the tracking
+                number.{'\n'}{'\n'}3. Invoices and packing slips: These are documents that
+                accompany the shipment and provide details on the contents of
+                the package, including the type and quantity of items, the
+                price, and any applicable taxes.{'\n'}{'\n'}4. Delivery instructions: These
+                are special instructions for the delivery person, such as where
+                to leave the package or any special requirements for delivery.{'\n'}{'\n'}5.
+                Insurance documents: If the shipment is insured, this may
+                include documentation that provides details on the insurance
+                coverage, such as the value of the goods and the conditions
+                under which the insurance applies.{'\n'}{'\n'}6. Documentation required for
+                customs clearance: If the shipment is being transported
+                internationally, it may require customs clearance. This may
+                include documents such as commercial invoices, packing lists,
+                and bills of lading.{'\n'}{'\n'}Having complete and accurate shipping and
+                delivery content is important to ensure a smooth and efficient
+                delivery process. It also helps to prevent errors and delays,
+                and ensures that the recipient receives the correct goods in
+                good condition.
+              </Text>
             </View>
           </View>
-
-
         </View>
-
       </View>
     </ScrollView>
   );
@@ -327,10 +415,11 @@ const styles = StyleSheet.create({
 
   dropdownHeader: {
     backgroundColor: "#fff",
-    flexDirection:"row",
-    justifyContent:"space-between",
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 10,
     borderRadius: 5,
+    marginBottom: 10,
   },
   dropdownHeaderText: {
     fontSize: 16,
@@ -338,7 +427,6 @@ const styles = StyleSheet.create({
     color: "black",
   },
   dropdownContent: {
-    marginTop: 10,
     backgroundColor: "#fff",
     padding: 10,
     borderRadius: 5,
@@ -350,10 +438,11 @@ const styles = StyleSheet.create({
   },
   show: {
     height: "auto",
-    marginBottom:10
+    marginBottom: 10,
   },
   hide: {
     height: 0,
+    display: "none",
     padding: 0,
   },
 });

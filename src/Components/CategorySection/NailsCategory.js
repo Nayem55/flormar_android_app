@@ -23,7 +23,7 @@ const NailsCategory = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://192.168.0.30:5000/getProductsByCategories?id=${id}&page=${pageCount}`
+      `http://192.168.0.103:5000/getProductsByCategories?id=${id}&page=${pageCount}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -68,10 +68,10 @@ const NailsCategory = () => {
   console.log(pages, pageCount);
 
   return (
-    <View style={{backgroundColor:"#fceef2"}}>
+    <View style={{ backgroundColor: "#fceef2" }}>
       <ScrollView style={{ backgroundColor: "#fceef2" }} horizontal={false}>
-      {/* ............................category bar............................... */}
-      
+        {/* ............................category bar............................... */}
+
         <ScrollView
           showsHorizontalScrollIndicator={false}
           horizontal={true}
@@ -173,23 +173,25 @@ const NailsCategory = () => {
         contentContainerStyle={{ paddingLeft: "4%", paddingBottom: 100 }}
         numColumns={2}
         style={styles.flatList}
-        ListEmptyComponent={() => (
-          (!loading && pages< 1) &&
-          <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#fceef2",
-            paddingTop:100
-          }}
-        >
-          <Text style={{ fontSize: 18, textAlign: "center" }}>
-            {" "}
-            Sorry ! We Don,t Have The Selected Category Available For Now
-          </Text>
-        </View>
-        )}
+        ListEmptyComponent={() =>
+          !loading &&
+          pages < 1 && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fceef2",
+                paddingTop: 100,
+              }}
+            >
+              <Text style={{ fontSize: 18, textAlign: "center" }}>
+                {" "}
+                Sorry ! We Don,t Have The Selected Category Available For Now
+              </Text>
+            </View>
+          )
+        }
       />
     </View>
   );

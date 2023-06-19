@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const StarRating = ({ product }) => {
-  const [selectedRating, setSelectedRating] = useState(product.average_rating);
+const StarRating = ({ rating ,size}) => {
+  const [selectedRating, setSelectedRating] = useState(rating);
 
   const handleRate = (newRating) => {
     setSelectedRating(newRating);
@@ -16,7 +16,7 @@ const StarRating = ({ product }) => {
 
     return (
       <TouchableOpacity key={starNumber} style={{marginTop:6}} >
-        <Ionicons name={iconName} size={22} color="#FFD700" />
+        <Ionicons name={iconName} size={size} color="#FFD700" />
       </TouchableOpacity>
     );
   };

@@ -5,6 +5,7 @@ import Home from "./Tabs/Home";
 import Cart from "./Tabs/Cart";
 import Profile from "./Tabs/Profile";
 import WIshList from "./Tabs/WIshList";
+import BottomBar from "../Components/BottomBar";
 
 const HomeScreen = ({navigation}) => {
     const [selectedTab,setSelectedTab] = useState(0)
@@ -25,7 +26,7 @@ const HomeScreen = ({navigation}) => {
         }
 
     {/*............. bottomBar.................. */}
-      <View style={styles.bottomView}>
+      {/* <View style={styles.bottomView}>
             <TouchableOpacity style={styles.bottomTab} onPress={()=>setSelectedTab(0)}>
                 <Image source={require('../Images/home.png')} style={[styles.bottomTabIcon,selectedTab===0 && styles.activeColor]}></Image>
             </TouchableOpacity>
@@ -38,7 +39,8 @@ const HomeScreen = ({navigation}) => {
             <TouchableOpacity style={styles.bottomTab} onPress={()=>setSelectedTab(3)}>
                 <Image source={require('../Images/heart.png')} style={[styles.bottomTabIcon,selectedTab===3 && styles.activeColor]}></Image>
             </TouchableOpacity>
-      </View>
+      </View> */}
+      <BottomBar></BottomBar>
     </View>
   );
 };

@@ -23,7 +23,7 @@ const Accessories = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://192.168.0.30:5000/getProductsByCategories?id=${id}&page=${pageCount}`
+      `http://192.168.0.103:5000/getProductsByCategories?id=${id}&page=${pageCount}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -39,7 +39,7 @@ const Accessories = () => {
     setIsCategoryChanged(true);
   }, [selectedCategory]);
 
-  console.log(loadData,accessories.length)
+  console.log(loadData, accessories.length);
 
   const ListEndLoader = () => {
     return (
@@ -256,23 +256,25 @@ const Accessories = () => {
         ListFooterComponent={ListEndLoader} // Loader when loading next page.
         contentContainerStyle={{ paddingLeft: "4%", paddingBottom: 100 }}
         numColumns={2}
-        ListEmptyComponent={() => (
-          (!loading && pages< 1) &&
-          <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#fceef2",
-            paddingTop:100
-          }}
-        >
-          <Text style={{ fontSize: 18, textAlign: "center" }}>
-            {" "}
-            Sorry ! We Don,t Have The Selected Category Available For Now
-          </Text>
-        </View>
-        )}
+        ListEmptyComponent={() =>
+          !loading &&
+          pages < 1 && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fceef2",
+                paddingTop: 100,
+              }}
+            >
+              <Text style={{ fontSize: 18, textAlign: "center" }}>
+                {" "}
+                Sorry ! We Don,t Have The Selected Category Available For Now
+              </Text>
+            </View>
+          )
+        }
         style={styles.flatList}
       />
     </View>
