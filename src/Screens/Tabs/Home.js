@@ -6,6 +6,7 @@ import BannerSwiper from '../../Components/BannerSwiper';
 import SummerTrends from '../../Components/SummerTrends';
 import NudeMakeUp from '../../Components/NudeMakeUp';
 import Resellers from '../../Components/Resellers';
+import HelpLine from '../../Components/HelpLine';
 
 const Home = () => {
   return (
@@ -34,6 +35,9 @@ const Home = () => {
     </View>
     <View>
       <Resellers></Resellers>
+    </View>
+    <View>
+      <HelpLine></HelpLine>
     </View>
     </ScrollView>
   )
