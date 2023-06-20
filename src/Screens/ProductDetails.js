@@ -48,7 +48,7 @@ const ProductDetails = ({ route }) => {
         <Text style={styles.name}>{product?.name}</Text>
         {/* .............ratings................ */}
         <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-          <StarRating product={product}></StarRating>
+          <StarRating product={product} fontsize={22}></StarRating>
           <Text style={{ color: "#000", opacity: 0.5 }}>
             ({product.rating_count} customer reviews)
           </Text>
@@ -75,11 +75,8 @@ const ProductDetails = ({ route }) => {
         </View>
 
         {/* ...................description.................. */}
-        <Text
-          style={{ color: "#000", opacity: 0.5, fontSize: 15, paddingTop: 10 }}
-        >
-          {product.short_description}
-        </Text>
+
+        <HTML style={{ color: "#000", opacity: 0.5, fontSize: 15, paddingTop: 10 }} source={{ html: product.short_description }} contentWidth={windowWidth}/>
 
         {/* ......................attributes............................ */}
         <View style={{ flex: 1, marginBottom: 20 }}>
@@ -251,6 +248,8 @@ const ProductDetails = ({ route }) => {
       </View>
     </ScrollView>
   );
+
+
 };
 
 export default ProductDetails;

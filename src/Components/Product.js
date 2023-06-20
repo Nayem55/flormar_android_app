@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import StarRating from "./Ratings";
 
 const Product = ({ product }) => {
   const navigation = useNavigation();
@@ -14,7 +15,8 @@ const Product = ({ product }) => {
       </TouchableOpacity>
       <View style={styles.details}>
         <Text>{product?.name}</Text>
-      <View style={{position:"absolute",top:60}}>
+        <StarRating product={product} fontsize={18}></StarRating>
+      <View style={{position:"absolute",top:70}}>
       <View style={{ flexDirection: "row", gap: 10 ,alignItems:"center"}}>
           <Text style={styles.price}>TK. {product?.on_sale?product?.sale_price:product?.regular_price}</Text>
           <Text
