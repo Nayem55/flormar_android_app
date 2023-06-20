@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Product from "../Product";
+import BottomBar from "../BottomBar";
 
 const FaceCategory = () => {
   const [faceProducts, setFaceProducts] = useState([]);
@@ -40,25 +41,32 @@ const FaceCategory = () => {
   }, [selectedCategory]);
 
   const ListEndLoader = () => {
-    return(
-      <View style={{flex:1,justifyContent:"center",paddingTop:10,marginLeft:"-4%",paddingBottom:10}}>
-      {
-        loading && <ActivityIndicator size={"large"} color="#ef4f85"></ActivityIndicator>
-      }
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          paddingTop: 10,
+          marginLeft: "-4%",
+          paddingBottom: 10,
+        }}
+      >
+        {loading && (
+          <ActivityIndicator size={"large"} color="#ef4f85"></ActivityIndicator>
+        )}
       </View>
-    )
+    );
   };
 
   useEffect(() => {
-    if(loadData){
-      if(pages > pageCount && !isCategoryChanged){
+    if (loadData) {
+      if (pages > pageCount && !isCategoryChanged) {
         setPageCount(pageCount + 1);
-      } 
+      }
     }
   }, [loadData]);
 
-
-  console.log(pages,pageCount)
+  console.log(pages, pageCount);
 
   return (
     <View>
@@ -311,23 +319,25 @@ const FaceCategory = () => {
         contentContainerStyle={{ paddingLeft: "4%", paddingBottom: 100 }}
         numColumns={2}
         style={styles.flatList}
-        ListEmptyComponent={() => (
-          (!loading && pages< 1) &&
-          <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#fceef2",
-            paddingTop:100
-          }}
-        >
-          <Text style={{ fontSize: 18, textAlign: "center" }}>
-            {" "}
-            Sorry ! We Don,t Have The Selected Category Available For Now
-          </Text>
-        </View>
-        )}
+        ListEmptyComponent={() =>
+          !loading &&
+          pages < 1 && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fceef2",
+                paddingTop: 100,
+              }}
+            >
+              <Text style={{ fontSize: 18, textAlign: "center" }}>
+                {" "}
+                Sorry ! We Don,t Have The Selected Category Available For Now
+              </Text>
+            </View>
+          )
+        }
       />
     </View>
   );

@@ -5,9 +5,9 @@ import Home from "./Tabs/Home";
 import Cart from "./Tabs/Cart";
 import Profile from "./Tabs/Profile";
 import WIshList from "./Tabs/WIshList";
+import BottomBar from "../Components/BottomBar";
 
 const HomeScreen = ({navigation}) => {
-    const [selectedTab,setSelectedTab] = useState(0)
   return (
     <View style={styles.container}>
     {/*............... header............... */}
@@ -20,25 +20,10 @@ const HomeScreen = ({navigation}) => {
       ></Header>
 
     {/*..............screen content.............. */}
-        {
-            selectedTab==0?<Home></Home>:selectedTab==1?<Cart></Cart>:selectedTab==2?<Profile></Profile>:<WIshList></WIshList>
-        }
+      <Home></Home>
 
     {/*............. bottomBar.................. */}
-      <View style={styles.bottomView}>
-            <TouchableOpacity style={styles.bottomTab} onPress={()=>setSelectedTab(0)}>
-                <Image source={require('../Images/home.png')} style={[styles.bottomTabIcon,selectedTab===0 && styles.activeColor]}></Image>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.bottomTab} onPress={()=>setSelectedTab(1)}>
-                <Image source={require('../Images/shopping-bag.png')} style={[styles.bottomTabIcon,selectedTab===1 && styles.activeColor]}></Image>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.bottomTab} onPress={()=>setSelectedTab(2)}>
-                <Image source={require('../Images/user.png')} style={[styles.bottomTabIcon,selectedTab===2 && styles.activeColor]}></Image>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.bottomTab} onPress={()=>setSelectedTab(3)}>
-                <Image source={require('../Images/heart.png')} style={[styles.bottomTabIcon,selectedTab===3 && styles.activeColor]}></Image>
-            </TouchableOpacity>
-      </View>
+      <BottomBar></BottomBar>
     </View>
   );
 };

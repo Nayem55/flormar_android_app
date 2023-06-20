@@ -15,7 +15,12 @@ const Product = ({ product }) => {
       </TouchableOpacity>
       <View style={styles.details}>
         <Text>{product?.name}</Text>
-        <StarRating product={product} fontsize={18}></StarRating>
+         <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+          <StarRating rating={product.average_rating} size={16}></StarRating>
+          <Text style={{ color: "#000", opacity: 0.5, marginTop:8 }}>
+            ({product.rating_count})
+          </Text>
+        </View>
       <View style={{position:"absolute",top:70}}>
       <View style={{ flexDirection: "row", gap: 10 ,alignItems:"center"}}>
           <Text style={styles.price}>TK. {product?.on_sale?product?.sale_price:product?.regular_price}</Text>
@@ -73,7 +78,7 @@ const styles = {
     fontSize:18
   },
   button: {
-    width: "100%",
+    width: 160,
     padding: 8,
     backgroundColor: "#ef4f85",
     marginTop: 10,
