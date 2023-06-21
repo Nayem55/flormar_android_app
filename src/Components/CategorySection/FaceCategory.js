@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Product from "../Product";
+import BottomBar from "../BottomBar";
 
 const FaceCategory = () => {
   const [faceProducts, setFaceProducts] = useState([]);
@@ -23,7 +24,7 @@ const FaceCategory = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://192.168.0.103:5000/getProductsByCategories?id=${id}&page=${pageCount}`
+      `http://192.168.0.30:5000/getProductsByCategories?id=${id}&page=${pageCount}`
     )
       .then((res) => res.json())
       .then((data) => {

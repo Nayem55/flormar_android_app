@@ -23,7 +23,7 @@ const BottomBar = () => {
             source={require("../Images/home.png")}
             style={[
               styles.bottomTabIcon,
-              route.name === "Home" && styles.activeColor,
+              route.name === "HOME" && styles.activeColor,
             ]}
           ></Image>
         </TouchableOpacity>
