@@ -2,9 +2,36 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import StarRating from "./Ratings";
+import useCart from "../Hooks/UseCart";
 
-const Product = ({ product }) => {
+import { addToDb } from "../CartDb";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../Redux/Slices/CartSlice";
+
+const Product = ({ product,cart,setCart }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+
+   const handleAddToCart = (item) => {
+    // console.log(item.id)
+    // let newCart = [];
+    // const exists = cart.find((product) => product.id == item.id);
+    // // console.log(exists?.quantity)
+    // if (!exists) {
+    //   item.quantity = 1;
+    //   newCart = [...cart, item];
+    // } else {
+    //   item.quantity = exists.quantity + 1;
+    //   const rest = cart.filter((product) => product.id != item.id);
+    //   newCart = [...rest, item];
+    // }
+    // setCart(newCart);
+    // addToDb(item.id);
+    // AsyncStorage.setItem("shopping-cart", JSON.stringify(newCart));
+
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={()=>navigation.navigate('Product Details',{product:product})} style={styles.productImage}>
@@ -35,7 +62,9 @@ const Product = ({ product }) => {
           {product?.on_sale && `TK. ${product?.regular_price}`}
           </Text>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={()=>{
+          dispatch(addItemToCart(product))
+        }} style={styles.button}>
           <Text style={{ color: "#fff" }}>Add To Cart</Text>
         </TouchableOpacity>
       </View>
