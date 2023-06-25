@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteItemFromCart } from "../Redux/Slices/CartSlice";
+import { addItemToCart, deleteItemFromCart, reduceItemQuantity } from "../Redux/Slices/CartSlice";
 const { height, width } = Dimensions.get("window");
 
 const CartProduct = ({ product,index }) => {
@@ -18,7 +18,7 @@ const CartProduct = ({ product,index }) => {
   const dispatch = useDispatch();
 
   const handleMinus = () => {
-    if (value > 0) {
+    if (value > 1) {
       setValue(value - 1);
     }
   };
@@ -56,7 +56,10 @@ const CartProduct = ({ product,index }) => {
               <View style={styles.quantity}>
                 <TouchableOpacity
                   style={styles.quantityButton}
-                  onPress={handleMinus}
+                  onPress={()=>{
+                    dispatch(reduceItemQuantity(product))
+                    handleMinus()
+                  }}
                 >
                   <Text style={styles.buttonText}>-</Text>
                 </TouchableOpacity>
@@ -68,7 +71,10 @@ const CartProduct = ({ product,index }) => {
                 />
                 <TouchableOpacity
                   style={styles.quantityButton}
-                  onPress={handlePlus}
+                  onPress={()=>{
+                    dispatch(addItemToCart(product))
+                    handlePlus()
+                  }}
                 >
                   <Text style={styles.buttonText}>+</Text>
                 </TouchableOpacity>

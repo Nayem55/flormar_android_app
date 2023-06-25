@@ -1,18 +1,26 @@
 import { View, Text, ScrollView, FlatList } from 'react-native'
 import React from 'react'
 import BottomBar from '../../Components/BottomBar'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Product from '../../Components/Product';
 import CartProduct from '../../Components/CartProduct';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
 
 const Cart = () => {
-  const cartItems = useSelector(state=>state.cart);
+  const [cartItems,setCartItems]=useState([])
+  const items = useSelector(state=>state.cart);
+  useEffect(()=>{
+    setCartItems(items.data)
+  },[items])
+
   return (
     <View style={{flex:1,backgroundColor:"#fff"}}>
     <View>
       {
         <FlatList
-        data={cartItems.data}
+        data={cartItems}
         renderItem={({ item,index }) => <CartProduct product={item} index={index} />}
         // onEndReached={() => setLoadData(true)}
         keyExtractor={(item) => item.id.toString()}
@@ -21,7 +29,7 @@ const Cart = () => {
         contentContainerStyle={{ paddingBottom: 100 }}
         // style={{flexDirection:"column"}}
         ListEmptyComponent={() =>
-          cartItems.data.length < 1 && (
+          cartItems?.data?.length < 1 && (
             <View
               style={{
                 flex: 1,
