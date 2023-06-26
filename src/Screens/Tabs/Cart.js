@@ -6,14 +6,46 @@ import Product from '../../Components/Product';
 import CartProduct from '../../Components/CartProduct';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadCartData } from '../../Redux/Slices/CartSlice';
 
 
 const Cart = () => {
   const [cartItems,setCartItems]=useState([])
   const items = useSelector(state=>state.cart);
+  const dispatch = useDispatch()
+  const setData = async (items) => {
+    try {
+      const stringifiedObject = JSON.stringify(items);
+      await AsyncStorage.setItem('cart', stringifiedObject);
+      console.log('Data saved successfully!');
+    } catch (error) {
+      console.log('Error saving data:', error);
+    }
+  };
+
   useEffect(()=>{
-    setCartItems(items.data)
+    // dispatch(loadCartData())
+    setCartItems(items.data);
+    setData(items.data)
   },[items])
+
+
+
+  const getData = async () => {
+    try {
+      const storedValue = await AsyncStorage.getItem('cart');
+      if (storedValue !== null) {
+        const parsedValue = JSON.parse(storedValue);
+        console.log('Retrieved data:', parsedValue);
+      } else {
+        console.log('No data found in AsyncStorage.');
+      }
+    } catch (error) {
+      console.log('Error retrieving data:', error);
+    }
+  };
+  getData()
 
   return (
     <View style={{flex:1,backgroundColor:"#fff"}}>
@@ -23,7 +55,7 @@ const Cart = () => {
         data={cartItems}
         renderItem={({ item,index }) => <CartProduct product={item} index={index} />}
         // onEndReached={() => setLoadData(true)}
-        keyExtractor={(item) => item.id.toString()}
+        // keyExtractor={(item) => item.id.toString()}
         onEndReachedThreshold={0.8}
         // ListFooterComponent={ListEndLoader} // Loader when loading next page.
         contentContainerStyle={{ paddingBottom: 100 }}
