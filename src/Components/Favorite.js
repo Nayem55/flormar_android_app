@@ -20,6 +20,7 @@ const Favorite = () => {
       favProducts.length>0 && setLoading(false);
   }, [favProducts.length]);
 
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Most Favorites</Text>
