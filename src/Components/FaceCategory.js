@@ -9,7 +9,7 @@ const FaceCategory = () => {
   const [faceProducts, setFaceProducts] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
-    fetch(`http://192.168.1.128:5000/getProductsByCategories`)
+    fetch(`http://192.168.0.28:5000/getProductsByCategories`)
       .then((res) => res.json())
       .then((data) => setFaceProducts(data));
   }, []);

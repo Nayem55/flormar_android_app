@@ -15,7 +15,7 @@ const NudeMakeUp = () => {
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
     useEffect(() => {
-      fetch(`http://192.168.0.30:5000/getNudeMakeUpProducts`)
+      fetch(`http://192.168.0.28:5000/getNudeMakeUpProducts`)
         .then((res) => res.json())
         .then((data) => setNudeMakeUpCollection(data));
         nudeMakeUpCollection.length>0 && setLoading(false);
