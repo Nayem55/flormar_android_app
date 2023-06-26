@@ -3,12 +3,15 @@ import AppNavigator from "./src/AppNavigator";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import {store} from "./src/Redux/Store";
 
 export default function App() {
-
   return (
     <GestureHandlerRootView style={styles.container}>
-      <AppNavigator></AppNavigator>
+      <Provider store={store}>
+        <AppNavigator></AppNavigator>
+      </Provider>
     </GestureHandlerRootView>
   );
 }
@@ -26,17 +29,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  bottomTab:{
-    width:"25%",
-    height:"100%",
-    justifyContent:"center",
-    alignItems:"center",
+  bottomTab: {
+    width: "25%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  bottomTabIcon:{
-    width:24,
-    height:24,
+  bottomTabIcon: {
+    width: 24,
+    height: 24,
   },
-  activeColor:{
-    tintColor:"#e7205b"
-  }
+  activeColor: {
+    tintColor: "#e7205b",
+  },
 });

@@ -8,6 +8,7 @@ import productDetails from "./Screens/ProductDetails";
 import Cart from "./Screens/Tabs/Cart";
 import Profile from "./Screens/Tabs/Profile";
 import WIshList from "./Screens/Tabs/WIshList";
+import { useState } from "react";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {

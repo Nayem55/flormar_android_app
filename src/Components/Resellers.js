@@ -70,7 +70,7 @@ export default Resellers;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 550,
+    height: 500,
     padding: 20,
     backgroundColor: "#FFF",
   },
