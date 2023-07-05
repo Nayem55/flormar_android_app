@@ -13,31 +13,40 @@ import { loadCartData } from '../../Redux/Slices/CartSlice';
 const Cart = () => {
   const [cartItems,setCartItems]=useState([])
   const items = useSelector(state=>state.cart);
-  const dispatch = useDispatch()
-  const setData = async (items) => {
-    try {
-      const stringifiedObject = JSON.stringify(items);
-      await AsyncStorage.setItem('cart', stringifiedObject);
-      console.log('Data saved successfully!');
-    } catch (error) {
-      console.log('Error saving data:', error);
-    }
-  };
+  // const dispatch = useDispatch();
+
+  // const setData = async (items) => {
+  //   try {
+  //     const stringifiedObject = JSON.stringify(items);
+  //     await AsyncStorage.setItem('cart', stringifiedObject);
+  //     console.log('Data saved successfully!');
+  //   } catch (error) {
+  //     console.log('Error saving data:', error);
+  //   }
+  // };
+
+  useEffect(()=>{
+    getData();
+  },[])
+
+  console.log("data31",items.data.length)
 
   useEffect(()=>{
     // dispatch(loadCartData())
-    setCartItems(items.data);
-    setData(items.data)
+          // setData(items.data);
+      setCartItems(items.data);
+      // setData(items.data);
+  
   },[items])
-
-
 
   const getData = async () => {
     try {
       const storedValue = await AsyncStorage.getItem('cart');
       if (storedValue !== null) {
         const parsedValue = JSON.parse(storedValue);
-        console.log('Retrieved data:', parsedValue);
+        items.data = parsedValue;
+        setCartItems(parsedValue)
+        console.log("data",parsedValue.length)
       } else {
         console.log('No data found in AsyncStorage.');
       }
@@ -45,7 +54,8 @@ const Cart = () => {
       console.log('Error retrieving data:', error);
     }
   };
-  getData()
+  // getData()
+  console.log(cartItems)
 
   return (
     <View style={{flex:1,backgroundColor:"#fff"}}>

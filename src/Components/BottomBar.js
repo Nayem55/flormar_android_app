@@ -3,12 +3,43 @@ import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BottomBar = () => {
     const [selectedTab,setSelectedTab] = useState(0)
+    const [cartItems,setCartItems]=useState([])
     const navigation = useNavigation()
     const route = useRoute();
-    const cartItems = useSelector(state=>state.cart);
+    const items = useSelector(state=>state.cart);
+
+    useEffect(()=>{
+      getData();
+    },[])
+
+    useEffect(()=>{
+      if(items.data){
+        setCartItems(items.data);
+      }
+    
+    },[items])
+
+    
+  const getData = async () => {
+    try {
+      const storedValue = await AsyncStorage.getItem('cart');
+      if (storedValue !== null) {
+        const parsedValue = JSON.parse(storedValue);
+        items.data = parsedValue;
+        setCartItems(parsedValue)
+        console.log("data",parsedValue.length)
+      } else {
+        console.log('No data found in AsyncStorage.');
+      }
+    } catch (error) {
+      console.log('Error retrieving data:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -44,7 +75,7 @@ const BottomBar = () => {
             ]}
           ></Image>
           <View style={{backgroundColor:"#e7205b",width:18,height:20,justifyContent:"center",alignItems:"center",position:"absolute",right:30,top:14,borderRadius:10}}>
-            <Text style={{color:"#fff"}}>{cartItems.data.length}</Text>
+            <Text style={{color:"#fff"}}>{cartItems.length}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
