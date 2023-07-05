@@ -5,10 +5,12 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Product from "../Product";
+import BottomBar from "../BottomBar";
 
 const LipsCategory = () => {
   const [eyesProducts, setEyesProducts] = useState([]);
@@ -20,6 +22,8 @@ const LipsCategory = () => {
   const [loadData, setLoadData] = useState(false);
   const [isCategoryChanged, setIsCategoryChanged] = useState(false);
   const navigation = useNavigation();
+  const deviceHeight = Dimensions.get("window").height;
+
   useEffect(() => {
     setLoading(true);
     fetch(
@@ -68,7 +72,7 @@ const LipsCategory = () => {
   console.log(pages, pageCount);
 
   return (
-    <View>
+    <View style={{flex:1, backgroundColor: "#fceef2", heigth: deviceHeight }}>
       <ScrollView style={{ backgroundColor: "#fceef2" }} horizontal={false}>
         {/* ............................category bar............................... */}
         <ScrollView
@@ -192,6 +196,7 @@ const LipsCategory = () => {
           )
         }
       />
+      <BottomBar></BottomBar>
     </View>
   );
 };

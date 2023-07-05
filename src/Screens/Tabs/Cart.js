@@ -1,42 +1,25 @@
-import { View, Text, ScrollView, FlatList } from 'react-native'
+import { View, Text, ScrollView, FlatList, TouchableOpacity } from 'react-native'
 import React from 'react'
 import BottomBar from '../../Components/BottomBar'
 import { useDispatch, useSelector } from 'react-redux';
-import Product from '../../Components/Product';
 import CartProduct from '../../Components/CartProduct';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loadCartData } from '../../Redux/Slices/CartSlice';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Cart = () => {
   const [cartItems,setCartItems]=useState([])
   const items = useSelector(state=>state.cart);
-  // const dispatch = useDispatch();
-
-  // const setData = async (items) => {
-  //   try {
-  //     const stringifiedObject = JSON.stringify(items);
-  //     await AsyncStorage.setItem('cart', stringifiedObject);
-  //     console.log('Data saved successfully!');
-  //   } catch (error) {
-  //     console.log('Error saving data:', error);
-  //   }
-  // };
+  const navigation = useNavigation();
 
   useEffect(()=>{
     getData();
   },[])
 
-  console.log("data31",items.data.length)
-
   useEffect(()=>{
-    // dispatch(loadCartData())
-          // setData(items.data);
-      setCartItems(items.data);
-      // setData(items.data);
-  
+    setCartItems(items.data);
   },[items])
 
   const getData = async () => {
@@ -46,7 +29,6 @@ const Cart = () => {
         const parsedValue = JSON.parse(storedValue);
         items.data = parsedValue;
         setCartItems(parsedValue)
-        console.log("data",parsedValue.length)
       } else {
         console.log('No data found in AsyncStorage.');
       }
@@ -54,12 +36,11 @@ const Cart = () => {
       console.log('Error retrieving data:', error);
     }
   };
-  // getData()
-  console.log(cartItems)
+
 
   return (
     <View style={{flex:1,backgroundColor:"#fff"}}>
-    <View>
+    <ScrollView>
       {
         <FlatList
         data={cartItems}
@@ -71,7 +52,7 @@ const Cart = () => {
         contentContainerStyle={{ paddingBottom: 100 }}
         // style={{flexDirection:"column"}}
         ListEmptyComponent={() =>
-          cartItems?.data?.length < 1 && (
+          cartItems?.length < 1 && (
             <View
               style={{
                 flex: 1,
@@ -90,10 +71,13 @@ const Cart = () => {
         }
       />
       }
-    </View>
+      <TouchableOpacity onPress={()=>navigation.navigate('Check Out',{items:cartItems})} style={{backgroundColor:"#000",padding:10,justifyContent:"center",alignItems:"center",marginLeft:30,marginRight:30,marginBottom:100}}>
+        <Text style={{color:"#fff",}}>Check Out</Text>
+      </TouchableOpacity>
+    </ScrollView>
       <BottomBar></BottomBar>
     </View>
   )
 }
 
-export default Cart
+export default Cart;

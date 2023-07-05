@@ -5,10 +5,12 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Product from "../Product";
+import BottomBar from "../BottomBar";
 
 const Accessories = () => {
   const [accessories, setAccessories] = useState([]);
@@ -20,6 +22,8 @@ const Accessories = () => {
   const [loadData, setLoadData] = useState(false);
   const [isCategoryChanged, setIsCategoryChanged] = useState(false);
   const navigation = useNavigation();
+  const deviceHeight = Dimensions.get("window").height;
+
   useEffect(() => {
     setLoading(true);
     fetch(
@@ -70,8 +74,8 @@ const Accessories = () => {
   console.log(pages, pageCount);
 
   return (
-    <View>
-      <ScrollView style={{ backgroundColor: "#fceef2" }} horizontal={false}>
+    <View style={{flex:1, backgroundColor: "#fceef2", heigth: deviceHeight }}>
+      <ScrollView horizontal={false}>
         <ScrollView
           showsHorizontalScrollIndicator={false}
           horizontal={true}
@@ -277,6 +281,7 @@ const Accessories = () => {
         }
         style={styles.flatList}
       />
+      <BottomBar></BottomBar>
     </View>
   );
 };

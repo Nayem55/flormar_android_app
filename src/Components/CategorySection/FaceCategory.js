@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -21,6 +22,7 @@ const FaceCategory = () => {
   const [loadData, setLoadData] = useState(false);
   const [isCategoryChanged, setIsCategoryChanged] = useState(false);
   const navigation = useNavigation();
+  const deviceHeight = Dimensions.get("window").height;
   useEffect(() => {
     setLoading(true);
     fetch(
@@ -48,7 +50,7 @@ const FaceCategory = () => {
           justifyContent: "center",
           paddingTop: 10,
           marginLeft: "-4%",
-          paddingBottom: 10,
+          paddingBottom: 20,
         }}
       >
         {loading && (
@@ -69,8 +71,8 @@ const FaceCategory = () => {
   console.log(pages, pageCount);
 
   return (
-    <View>
-      <ScrollView style={{ backgroundColor: "#fceef2" }} horizontal={false}>
+    <View style={{flex:1, backgroundColor: "#fceef2", heigth: deviceHeight }}>
+      <ScrollView horizontal={false}>
         <ScrollView
           showsHorizontalScrollIndicator={false}
           horizontal={true}
@@ -309,6 +311,7 @@ const FaceCategory = () => {
           </TouchableOpacity>
         </ScrollView>
       </ScrollView>
+
       <FlatList
         data={faceProducts}
         renderItem={({ item }) => <Product product={item} />}
@@ -339,6 +342,8 @@ const FaceCategory = () => {
           )
         }
       />
+
+      <BottomBar />
     </View>
   );
 };

@@ -5,10 +5,12 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Product from "../Product";
+import BottomBar from "../BottomBar";
 
 const NailsCategory = () => {
   const [nailsProducts, setNailsProducts] = useState([]);
@@ -20,6 +22,8 @@ const NailsCategory = () => {
   const [loadData, setLoadData] = useState(false);
   const [isCategoryChanged, setIsCategoryChanged] = useState(false);
   const navigation = useNavigation();
+  const deviceHeight = Dimensions.get("window").height;
+
   useEffect(() => {
     setLoading(true);
     fetch(
@@ -68,8 +72,8 @@ const NailsCategory = () => {
   console.log(pages, pageCount);
 
   return (
-    <View style={{ backgroundColor: "#fceef2" }}>
-      <ScrollView style={{ backgroundColor: "#fceef2" }} horizontal={false}>
+    <View style={{flex:1, backgroundColor: "#fceef2", heigth: deviceHeight }}>
+      <ScrollView horizontal={false}>
         {/* ............................category bar............................... */}
 
         <ScrollView
@@ -193,6 +197,7 @@ const NailsCategory = () => {
           )
         }
       />
+      <BottomBar></BottomBar>
     </View>
   );
 };

@@ -18,28 +18,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  bottomView: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    height: 60,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    backgroundColor: "#fff",
-  },
-  bottomTab: {
-    width: "25%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  bottomTabIcon: {
-    width: 24,
-    height: 24,
-  },
-  activeColor: {
-    tintColor: "#e7205b",
-  },
+  }
 });

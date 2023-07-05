@@ -18,6 +18,7 @@ import ProductImageSwiper from "../Components/ProductImageSwiper";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../Redux/Slices/CartSlice";
+import BottomBar from "../Components/BottomBar";
 
 const ProductDetails = ({ route }) => {
   const { product } = route.params;
@@ -102,7 +103,9 @@ const ProductDetails = ({ route }) => {
     setSelectedRating("")
   };
   return (
+    <View >
     <ScrollView style={styles.container}>
+
       <View style={{ backgroundColor: "#fff", padding: 10 }}>
         <ProductImageSwiper product={product}></ProductImageSwiper>
       </View>
@@ -464,7 +467,10 @@ const ProductDetails = ({ route }) => {
           </View>
         </View>
       </View>
-    </ScrollView>
+      </ScrollView>
+
+      <BottomBar></BottomBar>
+    </View>
   );
 };
 
@@ -474,6 +480,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     backgroundColor: "#fceef2",
+    marginBottom:60
   },
 
   details: {
