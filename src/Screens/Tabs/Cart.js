@@ -36,7 +36,7 @@ const Cart = () => {
       console.log('Error retrieving data:', error);
     }
   };
-
+  console.log()
 
   return (
     <View style={{flex:1,backgroundColor:"#fff"}}>
@@ -71,8 +71,11 @@ const Cart = () => {
         }
       />
       }
-      <TouchableOpacity onPress={()=>navigation.navigate('Check Out',{items:cartItems})} style={{backgroundColor:"#000",padding:10,justifyContent:"center",alignItems:"center",marginLeft:30,marginRight:30,marginBottom:100}}>
-        <Text style={{color:"#fff",}}>Check Out</Text>
+      <TouchableOpacity onPress={cartItems.length<1?
+        ()=>navigation.navigate('main'):
+        ()=>navigation.navigate('Check Out',{items:cartItems})
+        } style={{backgroundColor:"#e7205b",padding:10,justifyContent:"center",alignItems:"center",marginLeft:30,marginRight:30,marginBottom:100}}>
+        <Text style={{color:"#fff"}}>{cartItems.length<1?"CONTINUE SHOPPING":"PROCEED TO CHECKOUT"}</Text>
       </TouchableOpacity>
     </ScrollView>
       <BottomBar></BottomBar>

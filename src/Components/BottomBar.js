@@ -24,6 +24,12 @@ const BottomBar = () => {
     
     },[items])
 
+    let quantity = 0;
+  
+    cartItems.forEach((item) => {
+      quantity = quantity + item.quantity;
+    });
+
     
   const getData = async () => {
     try {
@@ -32,7 +38,6 @@ const BottomBar = () => {
         const parsedValue = JSON.parse(storedValue);
         items.data = parsedValue;
         setCartItems(parsedValue)
-        console.log("data",parsedValue.length)
       } else {
         console.log('No data found in AsyncStorage.');
       }
@@ -75,7 +80,7 @@ const BottomBar = () => {
             ]}
           ></Image>
           <View style={{backgroundColor:"#e7205b",width:18,height:20,justifyContent:"center",alignItems:"center",position:"absolute",right:30,top:14,borderRadius:10}}>
-            <Text style={{color:"#fff"}}>{cartItems.length}</Text>
+            <Text style={{color:"#fff"}}>{quantity}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity

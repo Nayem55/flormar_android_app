@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const CartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -22,26 +21,30 @@ const CartSlice = createSlice({
         tempData?.push(action.payload);
       }
       state.data = tempData;
-      AsyncStorage.setItem('cart',JSON.stringify(tempData))
+      AsyncStorage.setItem("cart", JSON.stringify(tempData));
     },
     reduceItemQuantity(state, action) {
       let tempData = state.data;
       tempData.map((item) => {
         if (item.id == action.payload.id) {
-          if(item.quantity>1){
+          if (item.quantity > 1) {
             item.quantity = item.quantity - 1;
           }
         }
-        AsyncStorage.setItem("cart",JSON.stringify(tempData));
+        AsyncStorage.setItem("cart", JSON.stringify(tempData));
       });
 
       state.data = tempData;
     },
-    deleteItemFromCart(state,action){
-        let tempData = state.data;
-        tempData.splice(action.payload, 1);
-        state.data=tempData;
-        AsyncStorage.setItem("cart",JSON.stringify(tempData));
+    deleteItemFromCart(state, action) {
+      let tempData = state.data;
+      tempData.splice(action.payload, 1);
+      state.data = tempData;
+      AsyncStorage.setItem("cart", JSON.stringify(tempData));
+    },
+    clearCart(state, action) {
+      state.data = [];
+      AsyncStorage.removeItem("cart");
     },
   },
 });
@@ -75,5 +78,10 @@ export const loadCartData = () => {
   };
 };
 
-export const { addItemToCart,deleteItemFromCart,reduceItemQuantity } = CartSlice.actions;
+export const {
+  addItemToCart,
+  deleteItemFromCart,
+  reduceItemQuantity,
+  clearCart,
+} = CartSlice.actions;
 export default CartSlice.reducer;

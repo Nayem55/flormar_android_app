@@ -10,6 +10,7 @@ import Profile from "./Screens/Tabs/Profile";
 import WIshList from "./Screens/Tabs/WIshList";
 import { useState } from "react";
 import CheckOut from "./Screens/CheckOut";
+import ConfirmationScreen from "./Screens/ConfirmationScreen";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -23,6 +24,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Profile" component={Profile} options={{headerShown: true}}/>
         <Stack.Screen name="Wishlist" component={WIshList} options={{headerShown: true}}/>
         <Stack.Screen name="Check Out" component={CheckOut} options={{headerShown: true}}/>
+        <Stack.Screen name="Confirm" component={ConfirmationScreen} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
