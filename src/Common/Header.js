@@ -13,7 +13,6 @@ const Header = ({
   leftIcon,
   rightIcon,
   onClickLeftIcon,
-
 }) => {
   return (
     <View style={styles.header}>

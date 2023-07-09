@@ -3,26 +3,26 @@ import React, { useState } from "react";
 import Header from "../Common/Header";
 import Home from "./Tabs/Home";
 import Cart from "./Tabs/Cart";
-import Profile from "./Tabs/Profile";
+import Profile from "./Tabs/Login";
 import WIshList from "./Tabs/WIshList";
 import BottomBar from "../Components/BottomBar";
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-    {/*............... header............... */}
+      {/*............... header............... */}
       <Header
         leftIcon={require("../Images/menu.png")}
         rightIcon={require("../Images/search.png")}
-        onClickLeftIcon={()=>{
-            navigation.openDrawer();
+        onClickLeftIcon={() => {
+          navigation.openDrawer();
         }}
       ></Header>
 
-    {/*..............screen content.............. */}
+      {/*..............screen content.............. */}
       <Home></Home>
 
-    {/*............. bottomBar.................. */}
+      {/*............. bottomBar.................. */}
       <BottomBar></BottomBar>
     </View>
   );
@@ -44,17 +44,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  bottomTab:{
-    width:"25%",
-    height:"100%",
-    justifyContent:"center",
-    alignItems:"center",
+  bottomTab: {
+    width: "25%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  bottomTabIcon:{
-    width:24,
-    height:24,
+  bottomTabIcon: {
+    width: 24,
+    height: 24,
   },
-  activeColor:{
-    tintColor:"#e7205b"
-  }
+  activeColor: {
+    tintColor: "#e7205b",
+  },
 });
