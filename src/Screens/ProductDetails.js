@@ -85,7 +85,7 @@ const ProductDetails = ({ route }) => {
       rating: JSON.stringify(selectedRating)
     };
 
-    fetch('http://192.168.0.30:5000/reviews', {
+    fetch('http://192.168.0.28:5000/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ const ProductDetails = ({ route }) => {
                   alignItems: "center",
                 }}
               >
-                <Text style={{ fontSize: 20 }}>{attribute.name}</Text>
+                <Text style={{ fontSize: 16 }}>{attribute.name}</Text>
                 <Text style={{ color: "#000", opacity: 0.5 }}>
                   {attribute.options}
                 </Text>

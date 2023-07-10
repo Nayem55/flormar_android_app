@@ -15,7 +15,7 @@ const SummerTrends = () => {
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
     useEffect(() => {
-      fetch(`http://192.168.0.30:5000/getSummerProducts`)
+      fetch(`http://192.168.0.28:5000/getSummerProducts`)
         .then((res) => res.json())
         .then((data) => setSummerTrends(data));
         summerTrends.length>0 && setLoading(false);

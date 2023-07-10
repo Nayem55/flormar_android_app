@@ -14,7 +14,7 @@ const Favorite = () => {
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   useEffect(() => {
-    fetch(`http://192.168.0.30:5000/getFavoriteProducts`)
+    fetch(`http://192.168.0.28:5000/getFavoriteProducts`)
       .then((res) => res.json())
       .then((data) => setFavProducts(data));
       favProducts.length>0 && setLoading(false);

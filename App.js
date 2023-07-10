@@ -3,6 +3,7 @@ import AppNavigator from "./src/AppNavigator";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+ 
 
 export default function App() {
 

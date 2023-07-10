@@ -7,6 +7,10 @@ import LipsCategory from "../Components/CategorySection/LipsCategory";
 import NailsCategory from "../Components/CategorySection/NailsCategory";
 import Accessories from "../Components/CategorySection/Accessories";
 import FaceCategory from "../Components/CategorySection/FaceCategory";
+import AboutUsScreen from "./Screen/AboutUs";
+import ContactUsScreen from "./Screen/ContactUs";
+import PrivacyPolicyScreen from "./Screen/PrivacyPolicy";
+
 
 
 const Drawer = createDrawerNavigator();
@@ -41,6 +45,21 @@ const Main = () => {
       <Drawer.Screen
         name="ACCESSORIES"
         component={Accessories}
+        options={{ headerShown: true }}
+      ></Drawer.Screen>
+      <Drawer.Screen
+        name="ABOUT US"
+        component={AboutUsScreen}
+        options={{ headerShown: true }}
+      ></Drawer.Screen>
+      <Drawer.Screen
+        name="CONTACT US"
+        component={ ContactUsScreen }
+        options={{ headerShown: true }}
+      ></Drawer.Screen>
+      <Drawer.Screen
+        name="PRIVACY POLICY"
+        component={ PrivacyPolicyScreen }
         options={{ headerShown: true }}
       ></Drawer.Screen>
     </Drawer.Navigator>
