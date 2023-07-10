@@ -23,7 +23,7 @@ const SummerTrends = () => {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Summer MakeUp Trends</Text>
+        <Text style={styles.title}>Summer Trends</Text>
         <View style={styles.underline} />
         <TouchableOpacity onPress={() => navigation.navigate("Summer Makeup")}>
           <Text style={{ marginTop: 20 }}>View All Products</Text>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";user
+import React, { useEffect } from "react";
 import { useState } from "react";
 import {
   View,
@@ -21,9 +21,10 @@ import BottomBar from "../../Components/BottomBar";
 const Login = () => {
   const [otp, setOtp] = useState("");
   const [ph, setPh] = useState("");
+  const [email, setEmail] = useState("");
   const [verificationId, setVerificationId] = useState(null);
   const [showOTP, setShowOTP] = useState(false);
-  const [userData, setUserData] = useState({});
+  const [userData,setUserData] = useState({})
   const recaptchaVerifier = useRef(null);
   const auth = getAuth();
   const user = auth.currentUser?.phoneNumber;
@@ -33,20 +34,20 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       // saveUser(userData);
-      navigation.navigate("User Account");
+      navigation.navigate("User Account")
     }
   }, [user]);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
+      'keyboardDidShow',
       () => {
         setIsKeyboardOpen(true);
       }
     );
 
     const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
+      'keyboardDidHide',
       () => {
         setIsKeyboardOpen(false);
       }
@@ -57,9 +58,9 @@ const Login = () => {
       keyboardDidHideListener.remove();
     };
   }, []);
-
+  
   const sendVerification = () => {
-    const phoneNumber = "+88" + ph;
+    const phoneNumber = "+88"+ph
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     phoneProvider
       .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
@@ -82,18 +83,64 @@ const Login = () => {
           position: "top",
         });
       });
+      const data = {
+        email: email,
+        password: "",
+        first_name: "",
+        last_name: "",
+        username: "",
+        billing: {
+          first_name: "",
+          last_name: "",
+          company: "",
+          address_1: "",
+          address_2: "",
+          city: "",
+          state: "",
+          postcode: "",
+          country: "Bangladesh",
+          email: email,
+          phone: phoneNumber,
+        },
+        shipping: {
+          first_name: "",
+          last_name: "",
+          company: "",
+          address_1: "",
+          address_2: "",
+          city: "",
+          state: "",
+          postcode: "",
+          country: "Bangladesh",
+        },
+        meta_data: [
+          {
+            id: 3237,
+            key: "digt_countrycode",
+            value: "+88",
+          },
+          {
+            id: 3238,
+            key: "digits_phone_no",
+            value: ph,
+          },
+          {
+            id: 3239,
+            key: "digits_phone",
+            value: phoneNumber,
+          },
+        ],
+      };
+      setUserData(data);
+      saveUser(data);
   };
 
-  const confirmCode = async () => {
-    const phoneNumber = "+88" + ph;
-    console.log(phoneNumber, "test");
+  const confirmCode = async() => {
     const credential = firebase.auth.PhoneAuthProvider.credential(
       verificationId,
       otp
     );
-    await firebase
-      .auth()
-      .signInWithCredential(credential)
+   await firebase.auth().signInWithCredential(credential)
       .then(() => {
         setOtp("");
         Toast.show({
@@ -112,71 +159,22 @@ const Login = () => {
           position: "top",
         });
       });
-    const data = {
-      email: "abd@gmail.com",
-      password: "",
-      first_name: "",
-      last_name: "",
-      username: "",
-      billing: {
-        first_name: "",
-        last_name: "",
-        company: "",
-        address_1: "",
-        address_2: "",
-        city: "",
-        state: "",
-        postcode: "",
-        country: "Bangladesh",
-        email: "abd@gmail.com",
-        phone: phoneNumber,
-      },
-      shipping: {
-        first_name: "",
-        last_name: "",
-        company: "",
-        address_1: "",
-        address_2: "",
-        city: "",
-        state: "",
-        postcode: "",
-        country: "Bangladesh",
-      },
-      meta_data: [
-        {
-          id: 3237,
-          key: "digt_countrycode",
-          value: "+88",
-        },
-        {
-          id: 3238,
-          key: "digits_phone_no",
-          value: ph,
-        },
-        {
-          id: 3239,
-          key: "digits_phone",
-          value: phoneNumber,
-        },
-      ],
-    };
-    setUserData(data);
-    await saveUser(data);
   };
-  const saveUser = (userData) => {
+  
+  const saveUser =(userData)=>{
     const data = userData;
-    fetch("http://192.168.0.30:5000/postCustomer", {
-      method: "post",
+    fetch('http://192.168.0.30:5000/postCustomer',{
+      method: 'post',
       headers: {
-        "content-type": "application/json",
+        'content-type' : 'application/json'
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  };
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+    })
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -197,7 +195,7 @@ const Login = () => {
               onChangeText={(text) => setOtp(text)}
               value={otp}
             />
-            <Text style={{ marginBottom: 10, color: "#a3a3a3" }}>
+            <Text style={{ marginBottom: 10,color: "#a3a3a3" }}>
               An OTP has sent to your mobile number . Please enter the OTP to
               confirm your login
             </Text>
@@ -214,7 +212,14 @@ const Login = () => {
           </View>
         ) : (
           <View style={{ width: "100%" }}>
-            <Text style={{ marginBottom: 10 }}>Phone number</Text>
+          <Text style={{marginBottom:10}}>Email address</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your email address"
+              onChangeText={setEmail}
+              value={email}
+            />
+          <Text style={{marginBottom:10}}>Phone number</Text>
             <TextInput
               style={styles.input}
               placeholder="Enter your phone number"
@@ -244,7 +249,7 @@ const Login = () => {
           </View>
         )}
       </View>
-      {isKeyboardOpen ? "" : <BottomBar></BottomBar>}
+      {isKeyboardOpen?"":<BottomBar></BottomBar>}
     </View>
   );
 };

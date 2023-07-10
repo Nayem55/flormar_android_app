@@ -61,7 +61,7 @@ const ProductDetails = ({ route }) => {
   };
 
   useEffect(() => {
-    fetch(`http://192.168.0.30:5000/reviews?id=${product.id}`)
+    fetch(`http://192.168.0.28:5000/reviews?id=${product.id}`)
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);

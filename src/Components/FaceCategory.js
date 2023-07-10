@@ -13,6 +13,7 @@
 
 // const { height, width } = Dimensions.get("window");
 
+<<<<<<< HEAD
 // const FaceCategory = () => {
 //   const [faceProducts, setFaceProducts] = useState([]);
 //   const navigation = useNavigation();
@@ -73,6 +74,52 @@
 //     </View>
 //   );
 // };
+=======
+const FaceCategory = () => {
+  const [faceProducts, setFaceProducts] = useState([]);
+  const navigation = useNavigation();
+  useEffect(() => {
+    fetch(`http://192.168.0.28:5000/getProductsByCategories`)
+      .then((res) => res.json())
+      .then((data) => setFaceProducts(data));
+  }, []);
+  return (
+    <ScrollView style={{backgroundColor:"#fceef2"}} horizontal={false}>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={styles.categoryBar}>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>FOUNDATION</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>BLUSH ON</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>FACE POWDER</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>CONCEALER</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>PRIMER</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>CONTOUR/HIGHLIGHTER</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>GEL/CREAM</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>FIXER</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>MASK</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>TONIC</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBarButton}>
+          <Text style={styles.categoryBarText}>CLEANER/REMOVER</Text>
+        </TouchableOpacity>
+>>>>>>> 8d7f157bccd2b8a9f8bcabb7da19d49dee71ee4e
 
 // export default FaceCategory;
 

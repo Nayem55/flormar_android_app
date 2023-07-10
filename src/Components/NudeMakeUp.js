@@ -23,7 +23,7 @@ const NudeMakeUp = () => {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Nude MakeUp Collection</Text>
+        <Text style={styles.title}>Nude MakeUp </Text>
         <View style={styles.underline} />
         <TouchableOpacity onPress={() => navigation.navigate("Nude Makeup")}>
           <Text style={{ marginTop: 20 }}>View All Products</Text>

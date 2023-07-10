@@ -27,7 +27,7 @@ const EyesCategory = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://192.168.0.30:5000/getProductsByCategories?id=${id}&page=${pageCount}`
+      `http://192.168.0.28:5000/getProductsByCategories?id=${id}&page=${pageCount}`
     )
       .then((res) => res.json())
       .then((data) => {

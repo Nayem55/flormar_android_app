@@ -16,7 +16,6 @@ const BottomBar = () => {
   const auth = getAuth();
   const user = auth.currentUser?.phoneNumber;
 
-  console.log(user,"user")
 
   useEffect(() => {
     getData();

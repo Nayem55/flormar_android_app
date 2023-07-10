@@ -16,6 +16,8 @@ const Profile = () => {
   const user = auth.currentUser?.phoneNumber;
   const navigation = useNavigation();
 
+  console.log(auth.currentUser)
+
   const LogOut = () => {
     auth
       .signOut()
