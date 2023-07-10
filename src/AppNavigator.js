@@ -1,18 +1,17 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import Main from "./Screens/Main";
-import ProductScreen from "./Screens/ProductScreen";
 import productDetails from "./Screens/ProductDetails";
 import Cart from "./Screens/Tabs/Cart";
-import WIshList from "./Screens/Tabs/WIshList";
-import { useState } from "react";
 import CheckOut from "./Screens/CheckOut";
 import ConfirmationScreen from "./Screens/ConfirmationScreen";
-import User from "./Screens/Profile";
 import Login from "./Screens/Tabs/Login";
 import Profile from "./Screens/Profile";
+import Shop from "./Screens/Tabs/Shop";
+import FavProducts from "./Screens/MostFavorites";
+import SummerMakeup from "./Screens/SummerMakeupPage";
+import NudeMakeupPage from "./Screens/NudeMakeupPage";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -25,8 +24,18 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Products"
-          component={ProductScreen}
+          name="Most Favorites"
+          component={FavProducts}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="Summer Makeup"
+          component={SummerMakeup}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="Nude Makeup"
+          component={NudeMakeupPage}
           options={{ headerShown: true }}
         />
         <Stack.Screen
@@ -45,8 +54,8 @@ const AppNavigator = () => {
           options={{ headerShown: true }}
         />
         <Stack.Screen
-          name="Wishlist"
-          component={WIshList}
+          name="Shop"
+          component={Shop}
           options={{ headerShown: true }}
         />
         <Stack.Screen

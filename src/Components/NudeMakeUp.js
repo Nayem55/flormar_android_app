@@ -15,9 +15,9 @@ const NudeMakeUp = () => {
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
     useEffect(() => {
-      fetch(`http://192.168.0.30:5000/getNudeMakeUpProducts`)
+      fetch(`http://192.168.0.30:5000/getNudeMakeUpProducts?page=1`)
         .then((res) => res.json())
-        .then((data) => setNudeMakeUpCollection(data));
+        .then((data) => setNudeMakeUpCollection(data[0]));
         nudeMakeUpCollection.length>0 && setLoading(false);
     }, [nudeMakeUpCollection.length]);
 
@@ -25,7 +25,7 @@ const NudeMakeUp = () => {
       <View style={styles.container}>
         <Text style={styles.title}>Nude MakeUp Collection</Text>
         <View style={styles.underline} />
-        <TouchableOpacity onPress={() => navigation.navigate("Products")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Nude Makeup")}>
           <Text style={{ marginTop: 20 }}>View All Products</Text>
         </TouchableOpacity>
         {loading && (

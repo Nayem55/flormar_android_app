@@ -120,14 +120,14 @@ const BottomBar = () => {
           style={styles.bottomTab}
           onPress={() => {
             setSelectedTab(3);
-            navigation.navigate("Wishlist");
+            navigation.navigate("Shop");
           }}
         >
           <Image
-            source={require("../Images/heart.png")}
+            source={require("../Images/shop.png")}
             style={[
               styles.bottomTabIcon,
-              route.name === "Wishlist" && styles.activeColor,
+              route.name === "Shop" && styles.activeColor,
             ]}
           ></Image>
         </TouchableOpacity>

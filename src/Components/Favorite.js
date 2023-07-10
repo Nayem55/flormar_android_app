@@ -14,9 +14,9 @@ const Favorite = () => {
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   useEffect(() => {
-    fetch(`http://192.168.0.30:5000/getFavoriteProducts`)
+    fetch(`http://192.168.0.30:5000/getFavoriteProducts?page=1`)
       .then((res) => res.json())
-      .then((data) => setFavProducts(data));
+      .then((data) => setFavProducts(data[0]));
       favProducts.length>0 && setLoading(false);
   }, [favProducts.length]);
 
@@ -25,7 +25,7 @@ const Favorite = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Most Favorites</Text>
       <View style={styles.underline} />
-      <TouchableOpacity onPress={() => navigation.navigate("Products")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Most Favorites")}>
         <Text style={{ marginTop: 20 }}>View All Products</Text>
       </TouchableOpacity>
       {loading && (

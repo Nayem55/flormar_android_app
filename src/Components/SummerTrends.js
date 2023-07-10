@@ -15,9 +15,9 @@ const SummerTrends = () => {
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
     useEffect(() => {
-      fetch(`http://192.168.0.30:5000/getSummerProducts`)
+      fetch(`http://192.168.0.30:5000/getSummerProducts?page=1`)
         .then((res) => res.json())
-        .then((data) => setSummerTrends(data));
+        .then((data) => setSummerTrends(data[0]));
         summerTrends.length>0 && setLoading(false);
     }, [summerTrends.length]);
 
@@ -25,7 +25,7 @@ const SummerTrends = () => {
       <View style={styles.container}>
         <Text style={styles.title}>Summer MakeUp Trends</Text>
         <View style={styles.underline} />
-        <TouchableOpacity onPress={() => navigation.navigate("Products")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Summer Makeup")}>
           <Text style={{ marginTop: 20 }}>View All Products</Text>
         </TouchableOpacity>
         <View><Image style={{width: "100%",height: 400,marginTop:25}} source={{uri:"https://flormarbd.com/wp-content/uploads/2023/04/Winter-MakeUp-Trends-image.jpg"}}></Image></View>

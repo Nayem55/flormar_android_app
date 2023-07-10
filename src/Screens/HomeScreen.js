@@ -2,9 +2,6 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Header from "../Common/Header";
 import Home from "./Tabs/Home";
-import Cart from "./Tabs/Cart";
-import Profile from "./Tabs/Login";
-import WIshList from "./Tabs/WIshList";
 import BottomBar from "../Components/BottomBar";
 
 const HomeScreen = ({ navigation }) => {
