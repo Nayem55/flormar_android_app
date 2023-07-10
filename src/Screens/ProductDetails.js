@@ -16,6 +16,8 @@ import HTML from "react-native-render-html";
 import DownArrowIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
 import { Ionicons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../Redux/Slices/CartSlice";
 
 const ProductDetails = ({ route }) => {
   const { product } = route.params;
@@ -29,6 +31,7 @@ const ProductDetails = ({ route }) => {
   const [reviewText, setReviewText] = useState("");
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const dispatch = useDispatch();
 
 
   const handleMinus = () => {
@@ -55,9 +58,9 @@ const ProductDetails = ({ route }) => {
       </TouchableOpacity>
     );
   };
-  console.log(email)
+
   useEffect(() => {
-    fetch(`http://192.168.0.30:5000/reviews?id=${product.id}`)
+    fetch(`http://192.168.0.28:5000/reviews?id=${product.id}`)
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
@@ -199,7 +202,9 @@ const ProductDetails = ({ route }) => {
               <Text style={styles.buttonText}>+</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.cartBtn}>
+          <TouchableOpacity onPress={()=>{
+            dispatch(addItemToCart(product))
+          }} style={styles.cartBtn}>
             <Text style={{ color: "#fff" }}>ADD TO CART</Text>
           </TouchableOpacity>
         </View>
