@@ -16,11 +16,12 @@ const BottomBar = () => {
   const auth = getAuth();
   const user = auth.currentUser?.phoneNumber;
 
-  console.log(user)
+  console.log(user,"user")
 
   useEffect(() => {
     getData();
   }, []);
+
 
   useEffect(() => {
     if (items.data) {
@@ -111,7 +112,7 @@ const BottomBar = () => {
             source={require("../Images/user.png")}
             style={[
               styles.bottomTabIcon,
-              route.name === "Profile" && styles.activeColor,
+              (route.name === "User Account"||route.name === "User Login") && styles.activeColor,
             ]}
           ></Image>
         </TouchableOpacity>

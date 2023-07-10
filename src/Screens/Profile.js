@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { getAuth } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import BottomBar from "../Components/BottomBar";
 
 const Profile = () => {
   const auth = getAuth();
@@ -52,6 +53,7 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
       </View>
+      <BottomBar></BottomBar>
     </View>
   );
 };

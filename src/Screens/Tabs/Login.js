@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import {
   View,
@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import { firebaseConfig } from "../../firebase.config";
@@ -22,15 +23,46 @@ const Login = () => {
   const [ph, setPh] = useState("");
   const [verificationId, setVerificationId] = useState(null);
   const [showOTP, setShowOTP] = useState(false);
+  const [userData,setUserData] = useState({})
   const recaptchaVerifier = useRef(null);
   const auth = getAuth();
   const user = auth.currentUser?.phoneNumber;
   const navigation = useNavigation();
-  console.log(user)
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      // saveUser(userData);
+      navigation.navigate("User Account")
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setIsKeyboardOpen(true);
+      }
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setIsKeyboardOpen(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+  
   const sendVerification = () => {
+    const phoneNumber = "+88"+ph
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     phoneProvider
-      .verifyPhoneNumber(ph, recaptchaVerifier.current)
+      .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
       .then(setVerificationId)
       .then(() => {
         setPh("");
@@ -52,14 +84,12 @@ const Login = () => {
       });
   };
 
-  const confirmCode = () => {
+  const confirmCode = async() => {
     const credential = firebase.auth.PhoneAuthProvider.credential(
       verificationId,
       otp
     );
-    firebase
-      .auth()
-      .signInWithCredential(credential)
+   await firebase.auth().signInWithCredential(credential)
       .then(() => {
         setOtp("");
         Toast.show({
@@ -78,7 +108,57 @@ const Login = () => {
           position: "top",
         });
       });
+      const data = {
+        email: "abc@gmail.com",
+        password:"",
+        first_name: "",
+        last_name: "",
+        username: "",
+        billing: {
+          first_name: "",
+          last_name: "",
+          company: "",
+          address_1: "",
+          address_2: "",
+          city: "",
+          state: "",
+          postcode: "",
+          country: "Bangladesh",
+          email: "abc@gmail.com",
+          phone: ph
+        },
+        shipping: {
+          first_name: "",
+          last_name: "",
+          company: "",
+          address_1: "",
+          address_2: "",
+          city: "",
+          state: "",
+          postcode: "",
+          country: "Bangladesh"
+        },
+
+      }
+      setUserData(data);
+      await saveUser(data);
   };
+  console.log(userData)
+  
+  const saveUser =(userData)=>{
+    const data = userData;
+    fetch('http://192.168.0.30:5000/postCustomer',{
+      method: 'post',
+      headers: {
+        'content-type' : 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+    })
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -95,6 +175,7 @@ const Login = () => {
             <TextInput
               style={styles.input}
               placeholder="Enter OTP"
+              keyboardType="phone-pad"
               onChangeText={(text) => setOtp(text)}
               value={otp}
             />
@@ -115,6 +196,7 @@ const Login = () => {
           </View>
         ) : (
           <View style={{ width: "100%" }}>
+          <Text style={{marginBottom:10}}>Phone number</Text>
             <TextInput
               style={styles.input}
               placeholder="Enter your phone number"
@@ -144,8 +226,7 @@ const Login = () => {
           </View>
         )}
       </View>
-
-      <BottomBar></BottomBar>
+      {isKeyboardOpen?"":<BottomBar></BottomBar>}
     </View>
   );
 };
