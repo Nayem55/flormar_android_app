@@ -16,6 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../Redux/Slices/CartSlice";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth } from "firebase/auth";
 
 const CheckOut = ({ route }) => {
   const { items } = route.params;
@@ -29,8 +30,13 @@ const CheckOut = ({ route }) => {
   const [shippingInDhaka, setShippingInDhaka] = useState();
   const [shippingOutDhaka, setShippingOutDhaka] = useState();
   const [shippingCharge, setShippingCharge] = useState(0);
+  const [userInfo, setUserInfo] = useState({});
   const dispatch = useDispatch();
   const navigation = useNavigation()
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+
 
   useEffect(() => {
     fetch("http://192.168.0.30:5000/shippingInDhaka")
@@ -40,8 +46,11 @@ const CheckOut = ({ route }) => {
     fetch("http://192.168.0.30:5000/shippingOutDhaka")
       .then((res) => res.json())
       .then((data) => setShippingOutDhaka(data));
-  }, []);
 
+    fetch(`http://192.168.0.30:5000/getCustomer?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setUserInfo(data));
+  }, []);
   useEffect(() => {
     if (selectedDistrict === "Dhaka") {
       shippingInDhaka &&
@@ -53,6 +62,8 @@ const CheckOut = ({ route }) => {
       setShippingCharge(0);
     }
   }, [selectedDistrict]);
+
+
 
   let quantity = 0;
   let total = 0;
@@ -94,7 +105,7 @@ const CheckOut = ({ route }) => {
       payment_method: "Cash On Delivery",
       payment_method_title: "Cash On Delivery",
       set_paid: false,
-      customer_id: 0,
+      customer_id: userInfo[0]?.id || 0,
       billing: {
         first_name: name,
         last_name: "",

@@ -13,11 +13,10 @@ import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import { firebaseConfig } from "../../firebase.config";
 import firebase from "firebase/compat/app";
 import { useRef } from "react";
-import { getAuth } from "firebase/auth";
+import { getAuth,updateEmail } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import BottomBar from "../../Components/BottomBar";
-
 const Login = () => {
   const [otp, setOtp] = useState("");
   const [ph, setPh] = useState("");
@@ -34,10 +33,19 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       // saveUser(userData);
-      navigation.navigate("User Account")
+      // navigation.navigate("User Account")
+      // updateEmail(auth.currentUser, email).then(() => {
+      //   // Email updated!
+      //   console.log("email addded")
+      //   // ...
+      // }).catch((error) => {
+      //   // An error occurred
+      //   console.log("Couldn't add email",error)
+      //   // ...
+      // });
     }
   }, [user]);
-
+  console.log(auth,"user")
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -59,14 +67,13 @@ const Login = () => {
     };
   }, []);
   
-  const sendVerification = () => {
+  const sendVerification = async() => {
     const phoneNumber = "+88"+ph
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    phoneProvider
+    await phoneProvider
       .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
       .then(setVerificationId)
       .then(() => {
-        setPh("");
         setShowOTP(true);
         Toast.show({
           type: "success",
@@ -83,59 +90,58 @@ const Login = () => {
           position: "top",
         });
       });
-      const data = {
-        email: email,
-        password: "",
-        first_name: "",
-        last_name: "",
-        username: "",
-        billing: {
-          first_name: "",
-          last_name: "",
-          company: "",
-          address_1: "",
-          address_2: "",
-          city: "",
-          state: "",
-          postcode: "",
-          country: "Bangladesh",
-          email: email,
-          phone: phoneNumber,
-        },
-        shipping: {
-          first_name: "",
-          last_name: "",
-          company: "",
-          address_1: "",
-          address_2: "",
-          city: "",
-          state: "",
-          postcode: "",
-          country: "Bangladesh",
-        },
-        meta_data: [
-          {
-            id: 3237,
-            key: "digt_countrycode",
-            value: "+88",
-          },
-          {
-            id: 3238,
-            key: "digits_phone_no",
-            value: ph,
-          },
-          {
-            id: 3239,
-            key: "digits_phone",
-            value: phoneNumber,
-          },
-        ],
-      };
-      setUserData(data);
-      saveUser(data);
   };
 
   const confirmCode = async() => {
+    const phoneNumber = "+88"+ph;
+    const data = {
+      email: email,
+      password: "",
+      first_name: "",
+      last_name: "",
+      username: "",
+      billing: {
+        first_name: "",
+        last_name: "",
+        company: "",
+        address_1: "",
+        address_2: "",
+        city: "",
+        state: "",
+        postcode: "",
+        country: "Bangladesh",
+        email: email,
+        phone: ph,
+      },
+      shipping: {
+        first_name: "",
+        last_name: "",
+        company: "",
+        address_1: "",
+        address_2: "",
+        city: "",
+        state: "",
+        postcode: "",
+        country: "Bangladesh",
+      },
+      meta_data: [
+        {
+          id: 3237,
+          key: "digt_countrycode",
+          value: "+88",
+        },
+        {
+          id: 3238,
+          key: "digits_phone_no",
+          value: ph,
+        },
+        {
+          id: 3239,
+          key: "digits_phone",
+          value: phoneNumber,
+        },
+      ],
+    };
     const credential = firebase.auth.PhoneAuthProvider.credential(
       verificationId,
       otp
@@ -148,6 +154,16 @@ const Login = () => {
           text1: "LOGIN SUCCESSFUL",
           position: "top",
         });
+        updateEmail(auth.currentUser, email).then(() => {
+          // Email updated!
+          console.log("email addded")
+          // ...
+        }).catch((error) => {
+          // An error occurred
+          console.log("Couldn't add email",error)
+          // ...
+        });
+        saveUser(data);
         navigation.navigate("main");
       })
       .catch((error) => {
@@ -159,6 +175,7 @@ const Login = () => {
           position: "top",
         });
       });
+      
   };
   
   const saveUser =(userData)=>{
@@ -217,7 +234,7 @@ const Login = () => {
               style={styles.input}
               placeholder="Enter your email address"
               onChangeText={setEmail}
-              value={email}
+              value={email.toLocaleLowerCase()}
             />
           <Text style={{marginBottom:10}}>Phone number</Text>
             <TextInput
