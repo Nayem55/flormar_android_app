@@ -12,6 +12,7 @@ import Shop from "./Screens/Tabs/Shop";
 import FavProducts from "./Screens/MostFavorites";
 import SummerMakeup from "./Screens/SummerMakeupPage";
 import NudeMakeupPage from "./Screens/NudeMakeupPage";
+import OrderList from "./Screens/OrderList";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -72,6 +73,11 @@ const AppNavigator = () => {
           name="Confirm"
           component={ConfirmationScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Order Details"
+          component={OrderList}
+          options={{ headerShown: true }}
         />
       </Stack.Navigator>
     </NavigationContainer>

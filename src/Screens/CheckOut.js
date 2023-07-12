@@ -47,10 +47,13 @@ const CheckOut = ({ route }) => {
       .then((res) => res.json())
       .then((data) => setShippingOutDhaka(data));
 
-    fetch(`http://192.168.0.30:5000/getCustomer?email=${user?.email}`)
+    if(user){
+      fetch(`http://192.168.0.30:5000/getCustomer?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setUserInfo(data));
+    }
   }, []);
+  
   useEffect(() => {
     if (selectedDistrict === "Dhaka") {
       shippingInDhaka &&

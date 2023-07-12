@@ -34,15 +34,6 @@ const Login = () => {
     if (user) {
       // saveUser(userData);
       // navigation.navigate("User Account")
-      // updateEmail(auth.currentUser, email).then(() => {
-      //   // Email updated!
-      //   console.log("email addded")
-      //   // ...
-      // }).catch((error) => {
-      //   // An error occurred
-      //   console.log("Couldn't add email",error)
-      //   // ...
-      // });
     }
   }, [user]);
   console.log(auth,"user")

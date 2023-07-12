@@ -182,7 +182,7 @@ const ProductDetails = ({ route }) => {
 
           {/* ...................stock status .......................*/}
           <View
-            style={[styles.stock, product.stock_quantity < 1 && style.outStock]}
+            style={[styles.stock, product.stock_quantity < 1 && styles.outStock]}
           >
             {product.stock_quantity > 0 && (
               <Icon name="check" size={18} color="white" />
@@ -193,7 +193,9 @@ const ProductDetails = ({ route }) => {
           </View>
 
           {/* ........................cart option .........................*/}
-          <View
+          {
+            product.stock_quantity > 0 &&
+            <View
             style={{ flex: 1, flexDirection: "row", gap: 10, marginTop: 20 }}
           >
             <View style={styles.quantity}>
@@ -224,9 +226,12 @@ const ProductDetails = ({ route }) => {
               <Text style={{ color: "#fff" }}>ADD TO CART</Text>
             </TouchableOpacity>
           </View>
+          }
+         
 
           {/* ..................buy button................. */}
-          <TouchableOpacity
+          {
+            product.stock_quantity > 0 && <TouchableOpacity
             style={{
               backgroundColor: "#000",
               padding: 10,
@@ -239,6 +244,8 @@ const ProductDetails = ({ route }) => {
           >
             <Text style={{ color: "#fff" }}>BUY NOW</Text>
           </TouchableOpacity>
+          }
+
 
           <View
             style={{
@@ -538,7 +545,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   outStock: {
-    backgroundColor: "#e34b6c",
+    backgroundColor: "red",
   },
   cartBtn: {
     width: "40%",

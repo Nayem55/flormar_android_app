@@ -15,6 +15,7 @@ const BottomBar = () => {
   const items = useSelector((state) => state.cart);
   const auth = getAuth();
   const user = auth.currentUser?.phoneNumber;
+  
 
 
   useEffect(() => {
