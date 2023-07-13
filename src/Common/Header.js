@@ -13,6 +13,7 @@ const Header = ({
   leftIcon,
   rightIcon,
   onClickLeftIcon,
+  onClickRightIcon
 }) => {
   return (
     <View style={styles.header}>
@@ -28,7 +29,9 @@ const Header = ({
         style={styles.logo}
         source={require("../Images/Flormar-Logo-Png-1-768x206.png")}
       ></Image>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity onPress={()=>{
+        onClickRightIcon()
+      }} style={styles.btn}>
         <Image source={rightIcon} style={styles.icon}></Image>
       </TouchableOpacity>
     </View>

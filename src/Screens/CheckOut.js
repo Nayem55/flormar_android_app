@@ -150,8 +150,7 @@ const CheckOut = ({ route }) => {
     if (!name || !number || !address || !selectedDistrict) {
       Toast.show({
         type: "error",
-        text1: "Error",
-        text2: "Please fill all the required fields",
+        text1: "Please fill up the required fields",
         position: "top",
       });
     } else {

@@ -33,7 +33,7 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       // saveUser(userData);
-      // navigation.navigate("User Account")
+      navigation.navigate("User Account")
     }
   }, [user]);
   console.log(auth,"user")
@@ -183,7 +183,36 @@ const Login = () => {
       console.log(data)
     })
   }
+  
+  const LogOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        console.log("User logged out successfully");
+        navigation.navigate("User Login");
+        // Perform any additional actions after the user is logged out
+      })
+      .catch((error) => {
+        console.log("An error occurred while logging out:", error);
+      });
+  };
 
+  // if(user){
+  //   return <View style={{ flex: 1, backgroundColor: "#fff",justifyContent:"center",alignItems:"center" }}>
+  //      <TouchableOpacity
+  //           style={{
+  //             backgroundColor: "#e7205b",
+  //             padding: 10,
+  //             alignItems: "center",
+  //           }}
+  //           onPress={LogOut}
+  //         >
+  //           <Text style={{ color: "#fff" }}>LOG OUT</Text>
+  //         </TouchableOpacity>
+  //   </View>
+  // }else
+
+  
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={styles.container}>

@@ -103,7 +103,7 @@ const BottomBar = () => {
           style={styles.bottomTab}
           onPress={() => {
             setSelectedTab(2);
-            !user?
+            user?
             navigation.navigate("User Login"):
             navigation.navigate("User Account");
           }}
