@@ -1,7 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import AppLoading from "expo-app-loading";
+import { useFonts } from 'expo-font';
 
 const AboutUsScreen = () => {
+  const [loaded] = useFonts({
+    "Roboto-Black": require('../../../assets/fonts/Roboto-Black.ttf'),
+    "Roboto-Light": require('../../../assets/fonts/Roboto-Light.ttf'),
+    "Roboto-Regular": require('../../../assets/fonts/Roboto-Regular.ttf'),
+  });
+  if (!loaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>About Us</Text>
@@ -25,16 +35,20 @@ const AboutUsScreen = () => {
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor:"#fff"
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     marginBottom: 20,
+    fontFamily:"Roboto-Black"
   },
   description: {
     fontSize: 16,
     marginBottom: 10,
     textAlign: 'center',
+    fontFamily:"Roboto-Regular"
+
   },
   contact: {
     fontSize: 16,
@@ -42,6 +56,7 @@ const AboutUsScreen = () => {
     textAlign: 'center',
     color: 'blue',
     textDecorationLine: 'underline',
+    fontFamily:"Roboto-Black"
   },
   });
 

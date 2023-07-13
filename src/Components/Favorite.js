@@ -8,11 +8,19 @@ import {
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import { useNavigation } from "@react-navigation/native";
+import { useFonts } from 'expo-font';
 
 const Favorite = () => {
   const [favProducts, setFavProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+  const [loaded] = useFonts({
+    "Roboto-Black": require('../../assets/fonts/Roboto-Black.ttf'),
+    "Roboto-Regular": require('../../assets/fonts/Roboto-Regular.ttf'),
+  });
+  // if (!loaded) {
+  //   return null;
+  // }
   useEffect(() => {
     fetch(`http://192.168.0.30:5000/getFavoriteProducts?page=1`)
       .then((res) => res.json())
@@ -26,7 +34,7 @@ const Favorite = () => {
       <Text style={styles.title}>Most Favorites</Text>
       <View style={styles.underline} />
       <TouchableOpacity onPress={() => navigation.navigate("Most Favorites")}>
-        <Text style={{ marginTop: 20 }}>View All Products</Text>
+        <Text style={{ marginTop: 20,fontFamily:"Roboto-Regular" }}>View All Products</Text>
       </TouchableOpacity>
       {loading && (
         <ActivityIndicator
@@ -56,11 +64,12 @@ const styles = {
     backgroundColor: "#fceef2",
     padding: 20,
     paddingTop: 60,
+    fontFamily:"Roboto-Regular"
   },
   title: {
     fontSize: 25,
     color: "#ef4f85",
-    fontFamily: "monospace",
+    fontFamily: "Roboto-Black",
   },
   underline: {
     width: 100,

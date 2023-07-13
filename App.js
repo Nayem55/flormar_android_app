@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import {store} from "./src/Redux/Store";
 import Toast from 'react-native-toast-message';
 
+
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.container}>

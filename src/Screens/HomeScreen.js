@@ -80,7 +80,6 @@ const HomeScreen = ({ navigation }) => {
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
-  console.log(toggleModal)
   return (
     <View style={styles.container}>
       {/*............... header............... */}
